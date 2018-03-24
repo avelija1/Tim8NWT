@@ -1,38 +1,90 @@
 package com.example.demo;
 
-
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import java.util.HashSet;
+import java.util.Set;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+//import org.hibernate.validator.constraints.NotEmpty;
+
+
 @Entity
-@Table(name = "role")
+@Table(name = "user")
+
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	
+	@NotNull
+    @Size(min=2, max=30)
 	private String lastName;
+	
+	@NotNull
+    @Size(min=2, max=30)
 	private String firstName;
+	
+    @Size(min=2, max=30)
 	private String userName;
+    
+    @NotEmpty 
+    @Email
 	private String email;
+    
+    @NotNull
+    @NotEmpty 
 	private String passwordHash;
+    
+	@NotNull
+	@Min(1)
+	@Max(5)
 	private int year;
+	
+	@NotNull
+	@Min(1)
+	@Max(6)
 	private int semester;
+	
 	@ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "role_id")
 	private Role role;
-	//private List<Task> tasks;
-	 protected User() {}
 	
-	public User(String firstName,String lastName, Role role, int year, int semester)
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="UserLecture", joinColumns=@JoinColumn(name="UserID", referencedColumnName="id"),
+	inverseJoinColumns=@JoinColumn(name="CourseID", referencedColumnName="id"))
+	private Set<Course> courses;
+	
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private Set<Task> tasks = new HashSet<>();
+	
+	//private List<Task> tasks;
+	 
+	protected User() {}
+	
+	public User(String firstName,String lastName, String userName, String email, String passwordHash, Role role, int year, int semester)
 	{
 		this.firstName=firstName;
 		this.lastName=lastName;
+		this.userName=userName;
+		this.email=email;
+		this.passwordHash=passwordHash;
 		this.role=role;
 		this.year=year;
 		this.semester=semester;
@@ -111,5 +163,23 @@ public class User {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+	
+	@Override 
+	public String toString() {
+		return String.format("User[id=%d, last name='%s', first name='%s']", id, lastName, firstName);
+	}
 
+	/*public Set<Course> getCourses(){
+		return courses;
+	}
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
+	}
+	
+	public Set<Task> getTasks(){
+		return tasks;
+	}
+	public void setTasks(Set<Task> tasks) {
+		this.tasks = tasks;
+	}*/
 }

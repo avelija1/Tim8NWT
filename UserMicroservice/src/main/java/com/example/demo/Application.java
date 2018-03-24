@@ -23,7 +23,7 @@ public class Application {
 			// save a couple of customers
 
 			Role role = new Role("Administrator");
-			userRepository.save(new User("Imenko","Prezimenko",role,1,2));
+			userRepository.save(new User("Imenko","Prezimenko", "imeprezime", "ime@etf.unsa.ba", "123asd",role,1,2));
 
 			// fetch all activities
 			log.info("ActivityTypes found with findAll():");

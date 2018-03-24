@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "role")
@@ -17,6 +19,8 @@ public class Role {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	@NotNull
+    @Size(min=2, max=30)
 	private String name;
 	@OneToMany(targetEntity = User.class, mappedBy = "role", fetch = FetchType.EAGER)
 	private Set<User> users;
@@ -44,4 +48,10 @@ public class Role {
 	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
+	 @Override
+	    public String toString() {
+	        return String.format(
+	                "Role[id=%d, Name='%s']",
+	                id, name);
+	    }
 }
