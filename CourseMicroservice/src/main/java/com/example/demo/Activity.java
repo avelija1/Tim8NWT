@@ -21,6 +21,8 @@ public class Activity {
 	@Size(max=255)
 	private String name;
 	
+
+	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
@@ -30,6 +32,12 @@ public class Activity {
 	public Activity(String name)
 	 {
 		 this.name=name;
+	 }
+	
+	public Activity(String name, Course course)
+	 {
+		 this.name=name;
+		 this.course = course;
 	 }
 	
 	public Long getId() {

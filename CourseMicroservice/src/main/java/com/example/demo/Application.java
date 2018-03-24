@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.HashSet;
+
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -26,16 +28,21 @@ public class Application {
 			ActivityRepository activityRepository) {
 		return (args) -> {
 		
-
+			Course course1 = new Course("KURS1", "KOD", 5.0, "OPIS");
+			Course course2 = new Course("KURS2", "KOD2", 6.0, "OPIS2");
+			//courseRepository.save(course1);
+			//courseRepository.save(course2);
 			
-			courseRepository.save(new Course("KURS1", "KOD", 5.0, "OPIS"));
-			courseRepository.save(new Course("KURS2", "KOD2", 6.0, "OPIS2"));
+			Activity activity1 = new Activity("Ispit", course1);
 			
-			//Potrebno je dodati vezu many to many sa userom
-			//userRepository.save(new User("Amer", "Kodzaga"));
+			User user1 = new User("Amer", "Kodzaga", new HashSet<Course>(){{
+                add(course1);
+                add(course2);
+            }});
 			
-			//Potrebno je dodati course_id
-			//activityRepository.save(new Activity("Ispit"));
+			//pošto su povezani, courses se spase zajedno sa user-om u svoj repozitorij
+			userRepository.save(user1);
+			activityRepository.save(activity1);
 			
 			// fetch all activities
 			log.info("Courses found with findAll():");

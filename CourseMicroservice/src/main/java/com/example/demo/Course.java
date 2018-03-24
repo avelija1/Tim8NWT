@@ -51,8 +51,6 @@ public class Course {
             mappedBy = "courses")
     private Set<User> users = new HashSet<>();
 	
-	
-	 
 	protected Course() {}
 	
 	public Course(String name, String code, double ects, String description)

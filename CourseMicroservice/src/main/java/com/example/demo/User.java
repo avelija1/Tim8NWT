@@ -37,6 +37,13 @@ public class User {
 		this.lastName=lastName;
 	}
 	
+	public User(String firstName,String lastName, Set<Course> courses)
+	{
+		this.firstName=firstName;
+		this.lastName=lastName;
+		this.courses = courses;
+	}
+	
 	@ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                 CascadeType.PERSIST,
