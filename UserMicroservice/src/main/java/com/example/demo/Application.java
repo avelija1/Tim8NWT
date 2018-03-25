@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.HashSet;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,12 +20,40 @@ public class Application {
 	}
 
 	@Bean
-	public CommandLineRunner demo(UserRepository userRepository) {
+	public CommandLineRunner demo(UserRepository userRepository,
+			TaskRepository taskRepository,
+			RoleRepository roleRepository,
+			CourseRepository courseRepository) {
 		return (args) -> {
 			// save a couple of customers
 
-			Role role = new Role("Administrator");
-			userRepository.save(new User("Imenko","Prezimenko", "imeprezime", "ime@etf.unsa.ba", "123asd",role,1,2));
+			Role role1 = new Role("Administrator");
+			Role role2 = new Role("Korisnik");
+			//roleRepository.save(role1);
+			//roleRepository.save(role2);
+			User user1 = new User("Imenko","Prezimenko", "imeprezime", "ime@etf.unsa.ba", "123asd",role1,1,2);
+			//User user3 = new User("Selma","Glavić", "sgl1", "sgl1@etf.unsa.ba", "sifra",role2,1,2);
+			userRepository.save(user1);
+			//userRepository.save(user3);
+			
+			
+			Course course1 = new Course("KURS1");
+			Course course2 = new Course("KURS2");
+			/*
+			Course course1 = new Course("Kurs", new HashSet<User>(){{
+                add(user1);
+                add(user2);
+            }});*/
+			
+			User user2 = new User("Amer","Kodžaga", "akod", "akod@etf.unsa.ba", "sifra2",role2,1,2, new HashSet<Course>(){{
+                add(course1);
+                add(course2);
+            }});
+			Task task1 = new Task("Zad1", user2);
+			
+			taskRepository.save(task1);
+			
+			userRepository.save(user2);
 
 			// fetch all activities
 			log.info("ActivityTypes found with findAll():");

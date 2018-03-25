@@ -26,6 +26,17 @@ public class Task {
 	
 	//private Long userId;
 	
+	
+	public Task(String name)
+	 {
+		 this.name=name;
+	 }
+	
+	public Task(String name, User user)
+	 {
+		 this.name=name;
+		 this.user = user;
+	 }
 
 	public Long getId() {
 		return id;

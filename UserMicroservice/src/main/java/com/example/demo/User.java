@@ -63,11 +63,22 @@ public class User {
 	@ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "role_id")
 	private Role role;
-	
+	/*
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="UserLecture", joinColumns=@JoinColumn(name="UserID", referencedColumnName="id"),
 	inverseJoinColumns=@JoinColumn(name="CourseID", referencedColumnName="id"))
 	private Set<Course> courses;
+	
+	*/
+	@ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE
+            })
+	@JoinTable(name = "user_courses",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "course_id") })
+    private Set<Course> courses = new HashSet<>();
 	
 	@OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
@@ -88,6 +99,19 @@ public class User {
 		this.role=role;
 		this.year=year;
 		this.semester=semester;
+	}
+	
+	public User(String firstName,String lastName, String userName, String email, String passwordHash, Role role, int year, int semester, Set<Course> courses)
+	{
+		this.firstName=firstName;
+		this.lastName=lastName;
+		this.userName=userName;
+		this.email=email;
+		this.passwordHash=passwordHash;
+		this.role=role;
+		this.year=year;
+		this.semester=semester;
+		this.courses = courses;
 	}
 
 	public Long getId() {
