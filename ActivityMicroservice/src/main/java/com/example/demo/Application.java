@@ -27,7 +27,8 @@ public class Application {
 
 			ActivityType activityType = new ActivityType("Tip aktivnosti");
 			ActivityPlace activityPlace = new ActivityPlace("Zgrada", "Sala");
-			activityRepository.save(new Activity("Prva aktivnost", activityType, activityPlace));
+			Course c=new Course("CourseName","Code",1,"Description");
+			activityRepository.save(new Activity("Prva aktivnost", activityType, activityPlace,c));
 
 			// fetch all activities
 			log.info("ActivityTypes found with findAll():");

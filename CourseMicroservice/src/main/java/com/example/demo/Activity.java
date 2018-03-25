@@ -21,8 +21,6 @@ public class Activity {
 	@Size(max=255)
 	private String name;
 	
-
-	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
