@@ -10,6 +10,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.example.demo.Models.Activity;
+import com.example.demo.Models.ActivityPlace;
+import com.example.demo.Models.ActivityType;
+import com.example.demo.Models.Course;
+import com.example.demo.Repositories.ActivityRepository;
+
 @SpringBootApplication
 public class Application {
 

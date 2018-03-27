@@ -14,6 +14,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.example.demo.Models.Task;
+import com.example.demo.Models.User;
+import com.example.demo.Repositories.TaskRepository;
+import com.example.demo.Repositories.UserRepository;
+
 @SpringBootApplication
 public class Application {
 

@@ -10,6 +10,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.example.demo.Models.Course;
+import com.example.demo.Models.Role;
+import com.example.demo.Models.Task;
+import com.example.demo.Models.User;
+import com.example.demo.Repositories.CourseRepository;
+import com.example.demo.Repositories.RoleRepository;
+import com.example.demo.Repositories.TaskRepository;
+import com.example.demo.Repositories.UserRepository;
+
 @SpringBootApplication
 public class Application {
 
@@ -31,7 +40,7 @@ public class Application {
 			Role role2 = new Role("Korisnik");
 			//roleRepository.save(role1);
 			//roleRepository.save(role2);
-			User user1 = new User("Imenko","Prezimenko", "imeprezime", "ime@etf.unsa.ba", "123asd",role1,1,2);
+			User user1 = new User(1,"Imenko","Prezimenko", "imeprezime", "ime@etf.unsa.ba", "123asd",role1,1,2);
 			//User user3 = new User("Selma","Glavić", "sgl1", "sgl1@etf.unsa.ba", "sifra",role2,1,2);
 			userRepository.save(user1);
 			//userRepository.save(user3);
