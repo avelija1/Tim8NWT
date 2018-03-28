@@ -29,8 +29,8 @@ public class UserService implements IUserService {
 	    }
 	    private static List<User> populateDummyUsers(){
 	        List<User> users = new ArrayList<User>();
-	        users.add(new User(counter.incrementAndGet(),"Almedin","Velija",null,null,null,null,0,0));
-	        users.add(new User(counter.incrementAndGet(),"Amer","Kodzaga",null,null,null,null,0,0));
+	       // users.add(new User(counter.incrementAndGet(),"Almedin","Velija",null,null,null,null,0,0));
+	       // users.add(new User(counter.incrementAndGet(),"Amer","Kodzaga",null,null,null,null,0,0));
 	        return users;
 	    }
 	@Override

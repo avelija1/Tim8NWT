@@ -60,8 +60,8 @@ public class User {
 	@Max(6)
 	private int semester;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "role_id")
+	@ManyToOne(cascade=CascadeType.MERGE, targetEntity=Role.class)
+   // @JoinColumn(name = "role_id")
 	private Role role;
 	/*
 	@ManyToMany(cascade=CascadeType.ALL)
@@ -88,10 +88,8 @@ public class User {
 	//private List<Task> tasks;
 	 
 	protected User() {}
-	
-	public User(long id,String firstName,String lastName, String userName, String email, String passwordHash, Role role, int year, int semester)
+	public User(String firstName,String lastName, String userName, String email, String passwordHash, Role role, int year, int semester)
 	{
-		this.id=id;
 		this.firstName=firstName;
 		this.lastName=lastName;
 		this.userName=userName;

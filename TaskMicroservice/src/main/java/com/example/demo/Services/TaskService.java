@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 
 @Service("taskService")
 @Transactional
-public class TaskService {
+public class TaskService{
 
 }
