@@ -9,7 +9,7 @@ public interface ITaskService {
     
     void createTask(Task task);
      
-    void editTask(int id, Task modifiedTask);
+    void editTask(long id, Task modifiedTask);
      
     void deleteTask(long id);
  
