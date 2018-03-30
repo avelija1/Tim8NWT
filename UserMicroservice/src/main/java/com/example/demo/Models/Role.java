@@ -29,6 +29,12 @@ public class Role {
 	{
 		this.name=name;
 	}
+	/*
+	public Role(String name, Set<User> users)
+	{
+		this.name=name;
+		this.users = users;
+	}*/
 	
 	public Long getId() {
 		return id;
@@ -45,9 +51,10 @@ public class Role {
 	public Set<User> getUsers() {
 		return users;
 	}
+	/*
 	public void setUsers(Set<User> users) {
 		this.users = users;
-	}
+	}*/
 	 @Override
 	    public String toString() {
 	        return String.format(

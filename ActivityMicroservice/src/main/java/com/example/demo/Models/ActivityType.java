@@ -55,12 +55,12 @@ public class ActivityType {
 	public String toString() {
 		return String.format("ActivityPlace[id=%d, Name='%s']", id, name);
 	}
-
+	
 	public Set<Activity> getActivities() {
 		return activities;
 	}
-
+	/*
 	public void setActivities(Set<Activity> activities) {
 		this.activities = activities;
-	}
+	}*/
 }

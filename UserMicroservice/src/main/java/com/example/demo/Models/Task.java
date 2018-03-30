@@ -19,13 +19,15 @@ public class Task {
 	@NotNull
     @Size(min=2, max=30)
 	private String name;
-
-	@ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+	@ManyToOne(cascade=CascadeType.MERGE, targetEntity=User.class)
+	// @JoinColumn(name = "user_id")
 	private User user;
 	
 	//private Long userId;
-	
+	protected Task()
+	 {
+		
+	 }
 	
 	public Task(String name)
 	 {
@@ -51,5 +53,10 @@ public class Task {
 		this.name = name;
 	}
 	
-	
+	public User getUser(){
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

@@ -34,10 +34,8 @@ public class User {
 	private String firstName;
 	
     
-	@OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "user")
-    private Set<Task> tasks = new HashSet<>();
+	@OneToMany(targetEntity = Task.class, mappedBy = "user", fetch = FetchType.EAGER)
+	private Set<Task> tasks = new HashSet<>();
 	
 	
 	//private List<Task> tasks;
@@ -49,6 +47,13 @@ public class User {
 		this.firstName=firstName;
 		this.lastName=lastName;
 	}
+	/*
+	public User(String firstName,String lastName, Set<Task> tasks)
+	{
+		this.tasks = tasks;
+		this.firstName=firstName;
+		this.lastName=lastName;
+	}*/
 
 	public Long getId() {
 		return id;
@@ -73,18 +78,11 @@ public class User {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-
-
-	/*public Set<Course> getCourses(){
-		return courses;
-	}
-	public void setCourses(Set<Course> courses) {
-		this.courses = courses;
-	}
 	
 	public Set<Task> getTasks(){
 		return tasks;
 	}
+	/*
 	public void setTasks(Set<Task> tasks) {
 		this.tasks = tasks;
 	}*/

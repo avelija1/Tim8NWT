@@ -29,6 +29,11 @@ public class User {
     @Size(min=2, max=30)
 	private String firstName;
 	
+	protected User()
+	{
+		
+	}
+	
 	//Mislim da konstruktor neće trebati kad se uspostavi mogućnost očitavanja redova
 	//tabela u drugim mikroservisima
 	public User(String firstName,String lastName)
@@ -46,11 +51,18 @@ public class User {
 	
 	@ManyToMany(fetch = FetchType.LAZY,
             cascade = {
-                CascadeType.PERSIST,
                 CascadeType.MERGE
-            })
-    @JoinTable(name = "user_courses",
+            },
+            targetEntity=Course.class)
+	@JoinTable(name = "user_courses",
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "course_id") })
     private Set<Course> courses = new HashSet<>();
+	
+	public Set<Course> getCourses(){
+		return courses;
+	}
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
+	}
 }

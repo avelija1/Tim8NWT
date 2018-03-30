@@ -103,8 +103,8 @@ public String status(){
 	}
 }
 
-@ManyToOne(cascade=CascadeType.ALL)
-@JoinColumn(name = "user_id")
+@ManyToOne(cascade=CascadeType.MERGE, targetEntity=User.class)
+// @JoinColumn(name = "user_id")
 private User user;
 
 @Override

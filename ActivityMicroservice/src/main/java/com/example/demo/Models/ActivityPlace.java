@@ -62,9 +62,9 @@ public class ActivityPlace {
 	public Set<Activity> getActivities() {
 		return activities;
 	}
-
+	/*
 	public void setActivities(Set<Activity> activities) {
 		this.activities = activities;
-	}
+	}*/
 
 }

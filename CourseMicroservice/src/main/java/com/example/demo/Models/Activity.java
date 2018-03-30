@@ -23,9 +23,14 @@ public class Activity {
 	@Size(max=255)
 	private String name;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id", nullable = false)
-    private Course course;
+	@ManyToOne(cascade=CascadeType.MERGE, targetEntity=Course.class)
+	   // @JoinColumn(name = "course_id")
+		private Course course;
+	
+	protected Activity()
+	{
+		
+	}
 	
 	//Mislim da konstruktor neće trebati kad se uspostavi mogućnost očitavanja redova
 	//tabela u drugim mikroservisima
@@ -54,6 +59,14 @@ public class Activity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
 

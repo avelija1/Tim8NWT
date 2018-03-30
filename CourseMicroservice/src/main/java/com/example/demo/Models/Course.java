@@ -40,16 +40,11 @@ public class Course {
 	@Size(max=255)
 	private String description;
 	
-	@OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "course")
-    private Set<Activity> activities = new HashSet<>();
+	@OneToMany(targetEntity = Activity.class, mappedBy = "course", fetch = FetchType.EAGER)
+	private Set<Activity> activities = new HashSet<>();
 	
-	@ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                CascadeType.PERSIST,
-                CascadeType.MERGE
-            },
+	@ManyToMany(fetch = FetchType.EAGER,
+            targetEntity=User.class,
             mappedBy = "courses")
     private Set<User> users = new HashSet<>();
 	
@@ -62,6 +57,15 @@ public class Course {
 		this.ects = ects;
 		this.description = description;
 	}
+	/*
+	public Course(String name, String code, double ects, String description, Set<User> users)
+	{
+		this.users = users;
+		this.name = name;
+		this.code = code;
+		this.ects = ects;
+		this.description = description;
+	}*/
 	
 	
 	public long getId() {
@@ -103,6 +107,20 @@ public class Course {
 	public void setDescription(String value) {
 		this.description = value;
 	}
+	public Set<User> getUsers(){
+		return users;
+	}
+	/*
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}*/
 	
+	public Set<Activity> getActivities() {
+		return activities;
+	}
+	/*
+	public void setActivities(Set<Activity> activities) {
+		this.users = users;
+	}*/
 	
 }

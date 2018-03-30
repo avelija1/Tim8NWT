@@ -25,11 +25,8 @@ public class Course {
 	@ManyToMany(mappedBy="courses")
 	private Set<User> users;*/
 	
-	@ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                CascadeType.PERSIST,
-                CascadeType.MERGE
-            },
+	@ManyToMany(fetch = FetchType.EAGER,
+            targetEntity=User.class,
             mappedBy = "courses")
     private Set<User> users = new HashSet<>();
 	
@@ -42,11 +39,12 @@ public class Course {
 	 {
 		 this.name = name;
 	 }
+	 /*
 	 public Course(String name, Set<User> users)
 		{
 			this.name=name;
 			this.users = users;
-		}
+		}*/
 	public long getId() {
 		return this.id;
 	}
@@ -95,7 +93,8 @@ public class Course {
 	public Set<User> getUsers(){
 		return users;
 	}
+	/*
 	public void setUsers(Set<User> users) {
 		this.users = users;
-	}
+	}*/
 }

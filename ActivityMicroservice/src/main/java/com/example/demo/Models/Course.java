@@ -27,7 +27,7 @@ public class Course {
 	@NotNull
     @Size(min=2, max=50)
 	private String name;
-	
+	/*
 	@Size(max=25)
 	private String code;
 	
@@ -36,19 +36,16 @@ public class Course {
 	private double ects;
 	
 	@Size(max=255)
-	private String description;
+	private String description;*/
 	
 	@OneToMany(targetEntity = Activity.class, mappedBy = "course", fetch = FetchType.EAGER)
     private Set<Activity> activities = new HashSet<>();
 	
 	protected Course() {}
 	
-	public Course(String name, String code, double ects, String description)
+	public Course(String name)
 	{
 		this.name = name;
-		this.code = code;
-		this.ects = ects;
-		this.description = description;
 	}
 	
 	
@@ -67,7 +64,7 @@ public class Course {
 	public void setName(String value) {
 		this.name = value;
 	}
-
+/*
 	public String getCode() {
 		return this.code;
 	}
@@ -90,7 +87,15 @@ public class Course {
 	
 	public void setDescription(String value) {
 		this.description = value;
+	}*/
+	
+	public Set<Activity> getActivities() {
+		return activities;
 	}
+	/*
+	public void setActivities(Set<Activity> activities) {
+		this.users = users;
+	}*/
 	
 	
 }

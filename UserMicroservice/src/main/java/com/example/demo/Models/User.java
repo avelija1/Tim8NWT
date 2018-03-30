@@ -72,22 +72,45 @@ public class User {
 	*/
 	@ManyToMany(fetch = FetchType.LAZY,
             cascade = {
-                CascadeType.PERSIST,
                 CascadeType.MERGE
-            })
+            },
+            targetEntity=Course.class)
 	@JoinTable(name = "user_courses",
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "course_id") })
     private Set<Course> courses = new HashSet<>();
 	
-	@OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "user")
-    private Set<Task> tasks = new HashSet<>();
+	@OneToMany(targetEntity = Task.class, mappedBy = "user", fetch = FetchType.EAGER)
+	private Set<Task> tasks = new HashSet<>();
 	
 	//private List<Task> tasks;
 	 
 	protected User() {}
+	
+	public User(String firstName,String lastName, String userName, String email, String passwordHash, int year, int semester)
+	{
+		this.firstName=firstName;
+		this.lastName=lastName;
+		this.userName=userName;
+		this.email=email;
+		this.passwordHash=passwordHash;
+		this.year=year;
+		this.semester=semester;
+	}
+	
+	public User(long id,String firstName,String lastName, String userName, String email, String passwordHash, Role role, int year, int semester)
+	{
+		this.id=id;
+		this.firstName=firstName;
+		this.lastName=lastName;
+		this.userName=userName;
+		this.email=email;
+		this.passwordHash=passwordHash;
+		this.role=role;
+		this.year=year;
+		this.semester=semester;
+	}
+	
 	public User(String firstName,String lastName, String userName, String email, String passwordHash, Role role, int year, int semester)
 	{
 		this.firstName=firstName;
@@ -108,6 +131,18 @@ public class User {
 		this.email=email;
 		this.passwordHash=passwordHash;
 		this.role=role;
+		this.year=year;
+		this.semester=semester;
+		this.courses = courses;
+	}
+	
+	public User(String firstName,String lastName, String userName, String email, String passwordHash, int year, int semester, Set<Course> courses)
+	{
+		this.firstName=firstName;
+		this.lastName=lastName;
+		this.userName=userName;
+		this.email=email;
+		this.passwordHash=passwordHash;
 		this.year=year;
 		this.semester=semester;
 		this.courses = courses;
@@ -192,7 +227,7 @@ public class User {
 		return String.format("User[id=%d, last name='%s', first name='%s']", id, lastName, firstName);
 	}
 
-	/*public Set<Course> getCourses(){
+	public Set<Course> getCourses(){
 		return courses;
 	}
 	public void setCourses(Set<Course> courses) {
@@ -202,6 +237,7 @@ public class User {
 	public Set<Task> getTasks(){
 		return tasks;
 	}
+	/*
 	public void setTasks(Set<Task> tasks) {
 		this.tasks = tasks;
 	}*/
