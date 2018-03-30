@@ -3,6 +3,7 @@ package com.example.demo.Interfaces;
 import java.util.List;
 
 import com.example.demo.Models.Course;
+import com.example.demo.Models.User;
 
 
 
@@ -11,11 +12,11 @@ public interface ICourseService {
     
     void createCourse(Course course);
      
-    void editCourse(int id, Course modifiedCourse);
+    void editCourse(long id, Course modifiedCourse);
      
     void deleteCourse(long id);
  
     List<Course> getCourses(); 
    
-    void ChangeUserEnrollmentOnCourse();
+    void ChangeUserEnrollmentOnCourse(Course course, User user);
 }

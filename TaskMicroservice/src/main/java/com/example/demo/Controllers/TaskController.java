@@ -65,7 +65,7 @@ public class TaskController {
 		Task currentTask = taskService.getTask(id);
 		
 		if (currentTask == null) {
-			System.out.println("Task with id " + id + " not founf");
+			System.out.println("Task with id " + id + " not found");
 			return new ResponseEntity<Task>(HttpStatus.NOT_FOUND);
 		}
 		
@@ -81,7 +81,7 @@ public class TaskController {
 		
 		Task task = taskService.getTask(id);
 		if (task == null) {
-			System.out.println("Unable to delete. User with id " + id +" not found");
+			System.out.println("Unable to delete. Task with id " + id +" not found");
 			return new ResponseEntity<Task>(HttpStatus.NOT_FOUND);
 		}
 		
