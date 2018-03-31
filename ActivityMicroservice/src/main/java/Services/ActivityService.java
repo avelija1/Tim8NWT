@@ -56,9 +56,13 @@ public class ActivityService implements IActivityService {
 
 	@Override
 	public void EditActivity(long id, Activity ModifiedActivity) {
-		int index = activities.indexOf(ModifiedActivity);
-		activities.set(index, ModifiedActivity);
-			}
+		Activity activity=activityRepository.findOne(id);
+		activity.setName(ModifiedActivity.getName());
+		activity.setActivityPlace(ModifiedActivity.getActivityPlace());
+		activity.setActivityType(ModifiedActivity.getActivityType());
+		activity.setCourse(ModifiedActivity.getCourse());
+		activityRepository.save(activity);
+	}
 
 	@Override
 	public void DeleteActivity(long id) {
@@ -75,7 +79,7 @@ public class ActivityService implements IActivityService {
 	public List<Activity> GetActivities() {
 		return (List<Activity>)activityRepository.findAll();
 	}
-
+	
 	@Override
 	public void CreateActivityType(ActivityType newActivityType) {
 		
@@ -84,7 +88,9 @@ public class ActivityService implements IActivityService {
 
 	@Override
 	public void EditActivityType(long id, ActivityType modifiedActivityType) {
-		activityTypeRepository.save(modifiedActivityType);
+		ActivityType activityType=activityTypeRepository.findOne(id);
+		activityType.setName(modifiedActivityType.getName());
+		activityTypeRepository.save(activityType);
 		
 	}
 
@@ -113,7 +119,7 @@ public class ActivityService implements IActivityService {
 	public List<ActivityType> GetActivityTypes() {
 		return (List<ActivityType>)activityTypeRepository.findAll();
 	}
-
+	
 	@Override
 	public void CreateActivityPlace(ActivityPlace newActivityPlace) {
 		activityPlaceRepository.save(newActivityPlace);
@@ -121,8 +127,10 @@ public class ActivityService implements IActivityService {
 
 	@Override
 	public void EditActivityPlace(long id, ActivityPlace modifiedActivityPlace) {
-		
-		activityPlaceRepository.save(modifiedActivityPlace);
+		ActivityPlace activityPlace=activityPlaceRepository.findOne(id);
+		activityPlace.setBuildingName(modifiedActivityPlace.getBuildingName());
+		activityPlace.setClassRoomName(modifiedActivityPlace.getClassRoomName());
+		activityPlaceRepository.save(activityPlace);
 	}
 
 	@Override
