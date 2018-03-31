@@ -60,7 +60,7 @@ public class User {
 	@Max(6)
 	private int semester;
 	
-	@ManyToOne(cascade=CascadeType.MERGE, targetEntity=Role.class)
+	@ManyToOne(cascade=CascadeType.MERGE, targetEntity=Role.class,fetch = FetchType.EAGER)
    // @JoinColumn(name = "role_id")
 	private Role role;
 	/*

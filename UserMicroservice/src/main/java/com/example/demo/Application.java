@@ -34,7 +34,7 @@ public class Application {
 			RoleRepository roleRepository,
 			CourseRepository courseRepository) {
 		return (args) -> {
-			Role role1=new Role("Admin");
+			/*Role role1=new Role("Admin");
 			Role savedRole1 = roleRepository.save(role1);
 			Role role2=new Role("User");
 			Role savedRole2 = roleRepository.save(role2);
@@ -105,7 +105,7 @@ public class Application {
 			for (User user : userRepository.findAll()) {
 				log.info(user.toString());
 			}
-			log.info("");
+			log.info("");*/
 		};
 	}
 

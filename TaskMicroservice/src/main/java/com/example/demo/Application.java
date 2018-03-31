@@ -14,7 +14,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.example.demo.Models.Course;
+
 import com.example.demo.Models.Task;
 import com.example.demo.Models.User;
 import com.example.demo.Repositories.TaskRepository;
@@ -35,7 +35,7 @@ public class Application {
 			UserRepository userRepository) {
 		return (args) -> {
 			
-			
+			/*
 			User user1 = new User("Imenko","Prezimenko");
 			User savedUser1 = userRepository.save(user1);
 			User user2 = new User("Selma","Glavić");
@@ -73,7 +73,7 @@ public class Application {
 			for (Task task : taskRepository.findAll()) {
 				log.info(task.toString());
 			}
-			log.info("");
+			log.info("");*/
 		};
 	}
 

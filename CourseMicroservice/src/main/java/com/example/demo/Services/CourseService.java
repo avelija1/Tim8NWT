@@ -24,7 +24,7 @@ public class CourseService implements ICourseService {
 	private static List<Course> courses;
 	
 	
-	static { 
+	/*static { 
 		courses = populateDummyCourses();
 	}
 	
@@ -76,7 +76,7 @@ public class CourseService implements ICourseService {
 		
 		return courses;
 	}
-	
+	*/
 	
 	@Override
 	public Course getCourse(long id) {

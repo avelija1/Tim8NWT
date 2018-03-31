@@ -35,7 +35,7 @@ public class Application {
 			ActivityRepository activityRepository) {
 		return (args) -> {
 		
-			User user1 = new User("Imenko","Prezimenko");
+		/*	User user1 = new User("Imenko","Prezimenko");
 			User savedUser1 = userRepository.save(user1);
 			User user2 = new User("Selma","Glavić");
 			User savedUser2 = userRepository.save(user2);
@@ -100,7 +100,7 @@ public class Application {
 			for (Course course : courseRepository.findAll()) {
 				log.info(course.toString());
 			}
-			log.info("");
+			log.info("");*/
 		};
 	}
 

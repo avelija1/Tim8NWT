@@ -12,7 +12,9 @@ import Interfaces.IActivityService;
 import com.example.demo.Models.Activity;
 import com.example.demo.Models.ActivityPlace;
 import com.example.demo.Models.ActivityType;
-
+import com.example.demo.Repositories.ActivityPlaceRepository;
+import com.example.demo.Repositories.ActivityRepository;
+import com.example.demo.Repositories.ActivityTypeRepository;
 
 
 @Service("activityService")
@@ -25,18 +27,20 @@ public class ActivityService implements IActivityService {
 	private static List<ActivityType> activityTypes;
 	private static List<ActivityPlace> activityPlaces;
 	
-	static {
-		activities = populateDummyActivities();
-	}
-	private static List<Activity> populateDummyActivities(){
-		List<Activity> activities = new ArrayList<Activity>();
-		Activity a=new Activity("Test");
-		activities.add(a);
-		return activities;
-	}
+	private   ActivityRepository activityRepository;
+	private   ActivityTypeRepository activityTypeRepository;
+	private   ActivityPlaceRepository activityPlaceRepository;
+	
+	 public ActivityService(ActivityRepository ar,ActivityTypeRepository at,ActivityPlaceRepository ap)
+	 {
+		 this.activityRepository=ar;
+		 this.activityTypeRepository=at;
+		 this.activityPlaceRepository=ap;
+	 }
 	
 	@Override
 	public Activity getActivity(long id) {
+		activities=(List<Activity>)activityRepository.findAll();
 		 for(Activity activity : activities){
 	            if(activity.getId() == id){
 	                return activity;
@@ -47,8 +51,7 @@ public class ActivityService implements IActivityService {
 	
 	@Override
 	public void CreateActivity(Activity newActivity) {
-		newActivity.setId(counter.incrementAndGet());
-		activities.add(newActivity);
+		activityRepository.save(newActivity);
 	}
 
 	@Override
@@ -62,7 +65,7 @@ public class ActivityService implements IActivityService {
 		for (Iterator<Activity> iterator = activities.iterator(); iterator.hasNext(); ) {
 			Activity activity = iterator.next();
 			if (activity.getId() == id) {
-				iterator.remove();
+				activityRepository.delete(id);
 			}
 		}
 		
@@ -70,34 +73,34 @@ public class ActivityService implements IActivityService {
 
 	@Override
 	public List<Activity> GetActivities() {
-		return activities;
+		return (List<Activity>)activityRepository.findAll();
 	}
 
 	@Override
 	public void CreateActivityType(ActivityType newActivityType) {
-		newActivityType.setId(counter.incrementAndGet());
-		   activityTypes.add(newActivityType);
+		
+		activityTypeRepository.save(newActivityType);
 	}
 
 	@Override
 	public void EditActivityType(long id, ActivityType modifiedActivityType) {
-		int index = activityTypes.indexOf(modifiedActivityType);
-        activityTypes.set(index, modifiedActivityType);
+		activityTypeRepository.save(modifiedActivityType);
 		
 	}
 
 	@Override
 	public void DeleteActivityType(long id) {
-		for (Iterator<Activity> iterator = activities.iterator(); iterator.hasNext(); ) {
-            Activity activity = iterator.next();
-            if (activity.getId() == id) {
-                iterator.remove();
+		for (Iterator<ActivityType> iterator = activityTypes.iterator(); iterator.hasNext(); ) {
+			ActivityType activityType = iterator.next();
+            if (activityType.getId() == id) {
+            	activityTypeRepository.delete(id);
             }
         }
 	}
 
 	@Override
 	public ActivityType GetActivityType(long id) {
+		activityTypes=(List<ActivityType>)activityTypeRepository.findAll();
 		for(ActivityType activityType : activityTypes){
             if(activityType.getId() == id){
                 return activityType;
@@ -108,27 +111,27 @@ public class ActivityService implements IActivityService {
 
 	@Override
 	public List<ActivityType> GetActivityTypes() {
-		return activityTypes;
+		return (List<ActivityType>)activityTypeRepository.findAll();
 	}
 
 	@Override
 	public void CreateActivityPlace(ActivityPlace newActivityPlace) {
-		newActivityPlace.setId(counter.incrementAndGet());
-		activityPlaces.add(newActivityPlace);
+		activityPlaceRepository.save(newActivityPlace);
 	}
 
 	@Override
 	public void EditActivityPlace(long id, ActivityPlace modifiedActivityPlace) {
-		int index = activityPlaces.indexOf(modifiedActivityPlace);
-		activityPlaces.set(index, modifiedActivityPlace);
+		
+		activityPlaceRepository.save(modifiedActivityPlace);
 	}
 
 	@Override
 	public void DeleteActivityPlace(long id) {
-		for (Iterator<Activity> iterator = activities.iterator(); iterator.hasNext(); ) {
-            Activity activity = iterator.next();
-            if (activity.getId() == id) {
-                iterator.remove();
+		activityPlaces=(List<ActivityPlace>)activityPlaceRepository.findAll();
+		for (Iterator<ActivityPlace> iterator = activityPlaces.iterator(); iterator.hasNext(); ) {
+            ActivityPlace activityPlace = iterator.next();
+            if (activityPlace.getId() == id) {
+            	activityTypeRepository.delete(id);
             }
         }
 		
@@ -136,6 +139,8 @@ public class ActivityService implements IActivityService {
 
 	@Override
 	public ActivityPlace GetActivityPlace(long id) {
+		activityPlaces=(List<ActivityPlace>)activityPlaceRepository.findAll();
+		
 		for(ActivityPlace activityPlace : activityPlaces){
             if(activityPlace.getId() == id){
                 return activityPlace;
@@ -146,7 +151,7 @@ public class ActivityService implements IActivityService {
 
 	@Override
 	public List<ActivityPlace> GetActivityPlaces() {
-		return activityPlaces;
+		return (List<ActivityPlace>)activityPlaceRepository.findAll();
 	}
 
 }

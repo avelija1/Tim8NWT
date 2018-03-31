@@ -46,7 +46,7 @@ public class Application {
 			//Course c=new Course("CourseName","Code",1,"Description");
 			//activityRepository.save(new Activity("Prva aktivnost", activityType, activityPlace,c));
 
-			Course course1 = new Course("KURS1");
+		/*	Course course1 = new Course("KURS1");
 			Course course2 = new Course("KURS2");
 			Course course3 = new Course("KURS3");
 			Course course4 = new Course("KURS4");
@@ -111,7 +111,7 @@ public class Application {
 			for (Activity activity : activityRepository.findAll()) {
 				log.info(activity.toString());
 			}
-			log.info("");
+			log.info("");*/
 		};
 	}
 }
