@@ -42,7 +42,7 @@ public class ActivityController {
 	 
 	 @RequestMapping(value = "/activity/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	    public ResponseEntity<Activity> getActivity(@PathVariable("id") long id) {
-	        System.out.println("Fetching Activity with id " + id);
+	   
 	        Activity activity = activityService.getActivity(id);
 	        if (activity == null) {
 	            System.out.println("Activity with id " + id + " not found");
@@ -53,11 +53,8 @@ public class ActivityController {
 	 
 	 @RequestMapping(value = "/activity/", method = RequestMethod.POST)
 	    public ResponseEntity<Void> createActivity(@RequestBody Activity activity,    UriComponentsBuilder ucBuilder) {
-	        System.out.println("Creating Activity " + activity.getName());
-	 
-	     
-	        activityService.CreateActivity(activity);
-	 
+	    
+		 activityService.CreateActivity(activity);
 	        HttpHeaders headers = new HttpHeaders();
 	        headers.setLocation(ucBuilder.path("/activity/{id}").buildAndExpand(activity.getId()).toUri());
 	        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);

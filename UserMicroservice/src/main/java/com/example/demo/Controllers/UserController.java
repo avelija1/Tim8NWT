@@ -34,6 +34,7 @@ public class UserController {
 	    @RequestMapping(value = "/user/", method = RequestMethod.GET)
 	    public ResponseEntity<List<User>> getUsers() {
 	        List<User> users = userService.getUsers();
+	        users.add(new User("Admin","Admin", "aaa", "aaa@etf.unsa.ba", "123asd",null,1,2));
 	        if(users.isEmpty()){
 	            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);
 	        }
