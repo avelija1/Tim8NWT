@@ -36,7 +36,7 @@ public class CourseController {
 	CourseService courseService;
 	
 	@RequestMapping(value = "/course/", method = RequestMethod.GET)
-	public ResponseEntity<List<Course>> listAllCourses() {
+	public ResponseEntity<List<Course>> getCourses() {
 		List<Course> courses = courseService.getCourses();
 		if (courses.isEmpty()) {
 			return new ResponseEntity<List<Course>>(HttpStatus.NO_CONTENT);
@@ -57,7 +57,7 @@ public class CourseController {
 	
 	@RequestMapping(value = "/course/", method = RequestMethod.POST)
 	public ResponseEntity<Void> createCourse(@RequestBody Course course, UriComponentsBuilder ucBuilder){
-		System.out.println("Creating Course " + course.getName());
+		//.out.println("Creating Course " + course.getName());
 		courseService.createCourse(course);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/course/{id}").buildAndExpand(course.getId()).toUri());
@@ -66,7 +66,7 @@ public class CourseController {
 	
 	@RequestMapping(value = "/course/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Course> updateCourse(@PathVariable("id") long id, @RequestBody Course course) {
-		System.out.println("Updating Course " + id);
+		//System.out.println("Updating Course " + id);
 		Course currentCourse = courseService.getCourse(id);
 		
 		if (currentCourse == null) {
@@ -74,9 +74,9 @@ public class CourseController {
 			return new ResponseEntity<Course> (HttpStatus.NOT_FOUND);
 		}
 		
-		currentCourse.setName(course.getName());
+		//currentCourse.setName(course.getName());
 		
-		courseService.editCourse(id, currentCourse);
+		courseService.editCourse(id, course);
 		return new ResponseEntity<Course>(currentCourse, HttpStatus.OK);
 	}
 	
