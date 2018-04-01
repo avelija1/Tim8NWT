@@ -15,6 +15,8 @@ import com.example.demo.Interfaces.ITaskService;
 
 import com.example.demo.Models.Task;
 import com.example.demo.Models.User;
+import com.example.demo.Repositories.TaskRepository;
+import com.example.demo.Repositories.UserRepository;
 
 @Service("taskService")
 @Transactional
@@ -22,21 +24,30 @@ public class TaskService implements ITaskService {
 	
 	private static final AtomicLong counter = new AtomicLong();
 	
+	private TaskRepository taskRepository;
+	private UserRepository userRepository;
+	
+	public TaskService (TaskRepository tr, UserRepository ur) {
+		this.taskRepository = tr;
+		this.userRepository = ur;
+	}
+	
 	private static List<Task> tasks;
 	
-	static {
+	/*static {
 		tasks = populateDummyTasks();
 	}
 	private static List<Task> populateDummyTasks(){
 		List<Task> tasks = new ArrayList<Task>();
-		/*User user1 = new User("Lejla", "Bajgorić");
+		User user1 = new User("Lejla", "Bajgorić");
 		Date datum = new Date();
-		tasks.add(new Task(counter.incrementAndGet(), "zadatak1", "Bilješke", datum, true, user1));*/
+		tasks.add(new Task(counter.incrementAndGet(), "zadatak1", "Bilješke", datum, true, user1));
 		return tasks;
-	}
+	}*/
 	
 	@Override
 	public Task getTask(long id) {
+		tasks = (List<Task>)taskRepository.findAll();
 		for (Task task : tasks) {
 			if (task.getId() == id) {
 				return task;
@@ -47,16 +58,18 @@ public class TaskService implements ITaskService {
 
 	@Override
 	public void createTask(Task task) {
-		task.setId(counter.incrementAndGet());
-		tasks.add(task);
-		
+		taskRepository.save(task);
 	}
 
 	@Override
 	public void editTask(long id, Task modifiedTask) {
-		int index = tasks.indexOf(modifiedTask);
-		tasks.set(index, modifiedTask);
-		
+		Task task = taskRepository.findOne(id);
+		task.setName(modifiedTask.getName());
+		task.setNotes(modifiedTask.getNotes());
+		task.setStatus(modifiedTask.getStatus());
+		task.setUser(modifiedTask.getUser());
+		task.setDate(modifiedTask.getDate());
+		taskRepository.save(task);			
 	}
 
 	@Override
@@ -64,7 +77,7 @@ public class TaskService implements ITaskService {
 		for (Iterator<Task> iterator = tasks.iterator(); iterator.hasNext(); ) {
 			Task task = iterator.next();
 			if (task.getId() == id) {
-				iterator.remove();
+				taskRepository.delete(id);
 			}
 		}
 				
@@ -73,7 +86,7 @@ public class TaskService implements ITaskService {
 
 	@Override
 	public List<Task> getTasks() {
-		return tasks;
+		return (List<Task>)taskRepository.findAll();
 	}
 	
 	

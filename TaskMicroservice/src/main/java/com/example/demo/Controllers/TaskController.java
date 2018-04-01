@@ -31,7 +31,7 @@ public class TaskController {
 	TaskService taskService;
 	
 	@RequestMapping(value = "/task/", method = RequestMethod.GET)
-	public ResponseEntity<List<Task>> listAllTasks() {
+	public ResponseEntity<List<Task>> getTasks() {
 		List<Task> tasks = taskService.getTasks();
 		if (tasks.isEmpty()) {
 			return new ResponseEntity<List<Task>>(HttpStatus.NO_CONTENT);
@@ -52,7 +52,7 @@ public class TaskController {
 	
 	@RequestMapping(value = "/task/", method = RequestMethod.POST)
 	public ResponseEntity<Void> createTask(@RequestBody Task task, UriComponentsBuilder ucBuilder){
-		System.out.println("Creating Task " + task.getName());
+		//System.out.println("Creating Task " + task.getName());
 		taskService.createTask(task);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/task/{id}").buildAndExpand(task.getId()).toUri());
@@ -61,17 +61,15 @@ public class TaskController {
 	
 	@RequestMapping(value = "/task/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Task> updateTask(@PathVariable("id") long id, @RequestBody Task task) {
-		System.out.println("Upradting Task " + id);
+		//System.out.println("Upradting Task " + id);
 		Task currentTask = taskService.getTask(id);
 		
 		if (currentTask == null) {
 			System.out.println("Task with id " + id + " not found");
 			return new ResponseEntity<Task>(HttpStatus.NOT_FOUND);
 		}
-		
-		currentTask.setName(task.getName());
-		
-		taskService.editTask(id, currentTask);
+				
+		taskService.editTask(id, task);
 		return new ResponseEntity<Task>(currentTask, HttpStatus.OK);
 	}
 	
