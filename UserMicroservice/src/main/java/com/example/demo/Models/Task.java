@@ -19,7 +19,7 @@ public class Task {
 	@NotNull
     @Size(min=2, max=30)
 	private String name;
-	@ManyToOne(cascade=CascadeType.MERGE, targetEntity=User.class)
+	@ManyToOne
 	// @JoinColumn(name = "user_id")
 	private User user;
 	

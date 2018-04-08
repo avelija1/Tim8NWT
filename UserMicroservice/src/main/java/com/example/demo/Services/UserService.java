@@ -45,8 +45,10 @@ public class UserService implements IUserService {
 
 	@Override
 	public void createUser(User user) {
-		   //user.setId(counter.incrementAndGet());
-		   userRepository.save(user);
+		   Role r=roleRepository.findOne(user.getRole().getId());
+		   r.addUser(user);
+		   roleRepository.save(r);
+		   //userRepository.save(user);
 	}
 
 	@Override

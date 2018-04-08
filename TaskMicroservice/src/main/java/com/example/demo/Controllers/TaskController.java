@@ -1,8 +1,13 @@
 package com.example.demo.Controllers;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,29 +19,58 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.demo.Models.Task;
+import com.example.demo.Models.User;
 import com.example.demo.Services.TaskService;
 
 @RestController
 public class TaskController {
     
-    /*@GetMapping("/task")
-    @ResponseBody
-    public String task(@RequestParam(value="name", defaultValue="World") String name) {
-        return "Test";
-    }*/
+	@Autowired
+	private DiscoveryClient discoveryClient;
+	
 	@Autowired
 	TaskService taskService;
 	
+	@RequestMapping(value = "/task/user/", method = RequestMethod.GET)
+	public ResponseEntity<User> getUserFromTask() {
+		List<ServiceInstance> instances=discoveryClient.getInstances("USERMICROSERVICE");
+		ServiceInstance serviceInstance=instances.get(0);
+		
+		String baseUrl=serviceInstance.getUri().toString();
+		
+		baseUrl=baseUrl+"/user/1";
+		
+		RestTemplate restTemplate = new RestTemplate();
+		User response=null;
+		try{
+		response=restTemplate.getForObject(baseUrl, User.class);
+		}catch (Exception ex)
+		{
+			System.out.println(ex);
+		}
+		return new ResponseEntity<User>(response, HttpStatus.OK);
+	}
+	
+	
 	@RequestMapping(value = "/task/", method = RequestMethod.GET)
 	public ResponseEntity<List<Task>> getTasks() {
+		
+		
 		List<Task> tasks = taskService.getTasks();
 		if (tasks.isEmpty()) {
 			return new ResponseEntity<List<Task>>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<Task>> (tasks, HttpStatus.OK);
+	}
+	
+	private static HttpEntity<?> getHeaders() throws IOException {
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+		return new HttpEntity<>(headers);
 	}
 	
 	@RequestMapping(value = "/task/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -3,6 +3,7 @@ package com.example.demo.Models;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "role")
 public class Role {
@@ -22,7 +25,8 @@ public class Role {
 	@NotNull
     @Size(min=2, max=30)
 	private String name;
-	@OneToMany(targetEntity = User.class, mappedBy = "role", fetch = FetchType.EAGER)
+	@JsonIgnore
+	@OneToMany(cascade=CascadeType.ALL,mappedBy = "role", orphanRemoval= true)
 	private Set<User> users;
 	 protected Role() {}
 	public Role(String name)
@@ -51,6 +55,9 @@ public class Role {
 	public Set<User> getUsers() {
 		return users;
 	}
+	public void addUser(User user) {
+        users.add(user);
+    }
 	/*
 	public void setUsers(Set<User> users) {
 		this.users = users;

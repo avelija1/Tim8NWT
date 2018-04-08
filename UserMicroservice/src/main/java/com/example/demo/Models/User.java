@@ -20,6 +20,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 //import org.hibernate.validator.constraints.NotEmpty;
 
 
@@ -60,16 +62,9 @@ public class User {
 	@Max(6)
 	private int semester;
 	
-	@ManyToOne(cascade=CascadeType.MERGE, targetEntity=Role.class,fetch = FetchType.EAGER)
-   // @JoinColumn(name = "role_id")
-	private Role role;
-	/*
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="UserLecture", joinColumns=@JoinColumn(name="UserID", referencedColumnName="id"),
-	inverseJoinColumns=@JoinColumn(name="CourseID", referencedColumnName="id"))
-	private Set<Course> courses;
+	@ManyToOne
+    private Role role;
 	
-	*/
 	@ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                 CascadeType.MERGE
@@ -82,8 +77,6 @@ public class User {
 	
 	@OneToMany(targetEntity = Task.class, mappedBy = "user", fetch = FetchType.EAGER)
 	private Set<Task> tasks = new HashSet<>();
-	
-	//private List<Task> tasks;
 	 
 	protected User() {}
 	
@@ -109,6 +102,7 @@ public class User {
 		this.role=role;
 		this.year=year;
 		this.semester=semester;
+		
 	}
 	
 	public User(String firstName,String lastName, String userName, String email, String passwordHash, Role role, int year, int semester)
@@ -121,6 +115,7 @@ public class User {
 		this.role=role;
 		this.year=year;
 		this.semester=semester;
+		
 	}
 	
 	public User(String firstName,String lastName, String userName, String email, String passwordHash, Role role, int year, int semester, Set<Course> courses)
@@ -134,6 +129,7 @@ public class User {
 		this.year=year;
 		this.semester=semester;
 		this.courses = courses;
+	
 	}
 	
 	public User(String firstName,String lastName, String userName, String email, String passwordHash, int year, int semester, Set<Course> courses)
@@ -237,8 +233,8 @@ public class User {
 	public Set<Task> getTasks(){
 		return tasks;
 	}
-	/*
-	public void setTasks(Set<Task> tasks) {
-		this.tasks = tasks;
-	}*/
+	
+	public void addTask(Task task) {
+        tasks.add(task);
+    }
 }

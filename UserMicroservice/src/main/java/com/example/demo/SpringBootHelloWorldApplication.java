@@ -9,7 +9,7 @@ import org.springframework.web.client.RestClientException;
 
 
 @SpringBootApplication
-@EnableDiscoveryClient
+
 public class SpringBootHelloWorldApplication {
 
 	public static void main(String[] args) {

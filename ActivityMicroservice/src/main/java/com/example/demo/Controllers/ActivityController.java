@@ -42,7 +42,8 @@ public class ActivityController {
 	 
 	 @RequestMapping(value = "/activity/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	    public ResponseEntity<Activity> getActivity(@PathVariable("id") long id) {
-	   
+		  System.out.println("Activity with id " + id + " not found");
+          
 	        Activity activity = activityService.getActivity(id);
 	        if (activity == null) {
 	            System.out.println("Activity with id " + id + " not found");

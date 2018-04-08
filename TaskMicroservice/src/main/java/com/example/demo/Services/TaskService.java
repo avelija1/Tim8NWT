@@ -1,5 +1,6 @@
 package com.example.demo.Services;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -9,8 +10,16 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired; //
-
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 import com.example.demo.Interfaces.ITaskService; 
 
 import com.example.demo.Models.Task;
@@ -26,6 +35,8 @@ public class TaskService implements ITaskService {
 	
 	private TaskRepository taskRepository;
 	private UserRepository userRepository;
+
+	
 	
 	public TaskService (TaskRepository tr, UserRepository ur) {
 		this.taskRepository = tr;
@@ -47,15 +58,18 @@ public class TaskService implements ITaskService {
 	
 	@Override
 	public Task getTask(long id) {
+		
 		tasks = (List<Task>)taskRepository.findAll();
 		for (Task task : tasks) {
 			if (task.getId() == id) {
 				return task;
 			}
 		}
-		return null;
+		return  new Task("Zad1", "bilješke", new Date(), true, null);
+		
+		//return null;
 	}
-
+	
 	@Override
 	public void createTask(Task task) {
 		taskRepository.save(task);
