@@ -5,13 +5,13 @@ import java.util.List;
 import com.example.demo.Models.Task;
 
 public interface ITaskService {
- 	Task getTask(long id);
-    
-    void createTask(Task task);
-     
-    void editTask(long id, Task modifiedTask);
-     
-    void deleteTask(long id);
- 
-    List<Task> getTasks(); 
+	Task getTask(long id);
+
+	void createTask(Task task);
+
+	void editTask(long id, Task modifiedTask);
+
+	void deleteTask(long id);
+
+	List<Task> getTasks();
 }

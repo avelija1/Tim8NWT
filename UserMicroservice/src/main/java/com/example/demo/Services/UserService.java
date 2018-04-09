@@ -23,9 +23,7 @@ public class UserService implements IUserService {
 	private UserRepository userRepository;
 	private RoleRepository roleRepository;
 
-	public UserService(UserRepository ur, RoleRepository rr)
-
-	{
+	public UserService(UserRepository ur, RoleRepository rr) {
 		this.userRepository = ur;
 		this.roleRepository = rr;
 	}
@@ -37,12 +35,10 @@ public class UserService implements IUserService {
 	public User getUser(long id) {
 		users = (List<User>) userRepository.findAll();
 		for (User user : users) {
-
 			if (user.getId() == id) {
 				return user;
 			}
 		}
-
 		return null;
 	}
 
@@ -65,19 +61,16 @@ public class UserService implements IUserService {
 		user.setRole(modifiedUser.getRole());
 		user.setCourses(modifiedUser.getCourses());
 		userRepository.save(user);
-
 	}
 
 	@Override
 	public void deleteUser(long id) {
 		for (Iterator<User> iterator = users.iterator(); iterator.hasNext();) {
 			User user = iterator.next();
-
 			if (user.getId() == id) {
 				userRepository.delete(id);
 			}
 		}
-
 	}
 
 	@Override
@@ -89,7 +82,6 @@ public class UserService implements IUserService {
 	public Role getRole(long id) {
 		roles = (List<Role>) roleRepository.findAll();
 		for (Role role : roles) {
-
 			if (role.getId() == id) {
 				return role;
 			}

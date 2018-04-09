@@ -29,7 +29,6 @@ public class Role {
 
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "role", orphanRemoval = true)
-
 	private Set<User> users;
 
 	protected Role() {

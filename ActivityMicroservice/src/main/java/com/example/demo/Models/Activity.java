@@ -7,10 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
+@Table(name = "Activity")
 public class Activity {
 
 	@Id
@@ -32,30 +34,11 @@ public class Activity {
 
 	protected Activity() {
 	}
-
-	public Activity(String name) {
-		this.name = name;
-	}
-
+	
 	public Activity(String name, ActivityType at, ActivityPlace ap, Course c) {
 		this.name = name;
 		this.activityType = at;
 		this.activityPlace = ap;
-		this.course = c;
-	}
-
-	public Activity(String name, ActivityType at) {
-		this.name = name;
-		this.activityType = at;
-	}
-
-	public Activity(String name, ActivityPlace ap) {
-		this.name = name;
-		this.activityPlace = ap;
-	}
-
-	public Activity(String name, Course c) {
-		this.name = name;
 		this.course = c;
 	}
 
@@ -73,12 +56,6 @@ public class Activity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	@Override
-	public String toString() {
-
-		return String.format("Activity[id=%d, Name='%s']", id, name);
 	}
 
 	public ActivityType getActivityType() {
@@ -105,4 +82,8 @@ public class Activity {
 		this.course = course;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("Activity[id=%d, Name='%s']", id, name);
+	}
 }

@@ -26,7 +26,6 @@ public class ActivityPlace {
 
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "activityPlace", orphanRemoval = true)
-
 	private Set<Activity> activities;
 
 	protected ActivityPlace() {
@@ -65,13 +64,12 @@ public class ActivityPlace {
 		activities.add(activity);
 	}
 
-	@Override
-	public String toString() {
-		return String.format("ActivityPlace[id=%d, BuildingName='%s']", id, buildingName);
-	}
-
 	public Set<Activity> getActivities() {
 		return activities;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("ActivityPlace[id=%d, BuildingName='%s']", id, buildingName);
+	}
 }

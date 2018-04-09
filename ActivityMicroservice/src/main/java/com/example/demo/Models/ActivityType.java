@@ -39,43 +39,35 @@ public class ActivityType {
 	}
 
 	public ActivityType(String name) {
-
 		this.name = name;
 	}
 
 	public Long getId() {
-
 		return id;
 	}
 
 	public void setId(Long id) {
-
 		this.id = id;
 	}
 
 	public String getName() {
-
 		return name;
 	}
 
 	public void setName(String name) {
-
 		this.name = name;
 	}
 
 	public void addActivity(Activity activity) {
-
 		activities.add(activity);
-	}
-
-	@Override
-	public String toString() {
-
-		return String.format("ActivityPlace[id=%d, Name='%s']", id, name);
 	}
 
 	public Set<Activity> getActivities() {
 		return activities;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("ActivityPlace[id=%d, Name='%s']", id, name);
+	}
 }

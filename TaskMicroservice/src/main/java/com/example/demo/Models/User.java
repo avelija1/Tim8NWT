@@ -16,44 +16,35 @@ import java.util.Set;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "User")
-
 public class User {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@NotNull
-    @Size(min=2, max=30)
+	@Size(min = 2, max = 30)
 	private String lastName;
-	
+
 	@NotNull
-    @Size(min=2, max=30)
+	@Size(min = 2, max = 30)
 	private String firstName;
-	
-    
-	@OneToMany(targetEntity = Task.class, mappedBy = "user", fetch = FetchType.EAGER)
+
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
 	private Set<Task> tasks = new HashSet<>();
-	
-	
-	//private List<Task> tasks;
-	 
-	protected User() {}
-	
-	public User(String firstName,String lastName)
-	{
-		this.firstName=firstName;
-		this.lastName=lastName;
+
+	protected User() {
 	}
-	/*
-	public User(String firstName,String lastName, Set<Task> tasks)
-	{
-		this.tasks = tasks;
-		this.firstName=firstName;
-		this.lastName=lastName;
-	}*/
+
+	public User(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
 	public Long getId() {
 		return id;
@@ -78,12 +69,12 @@ public class User {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	
-	public Set<Task> getTasks(){
+
+	public Set<Task> getTasks() {
 		return tasks;
 	}
-	/*
-	public void setTasks(Set<Task> tasks) {
-		this.tasks = tasks;
-	}*/
+	
+	public void addTask(Task task) {
+		tasks.add(task);
+	}
 }

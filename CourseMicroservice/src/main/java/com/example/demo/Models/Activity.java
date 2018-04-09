@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.example.demo.Models.Course;
@@ -16,35 +17,27 @@ import com.example.demo.Models.Course;
 @Entity
 @Table(name = "Activity")
 public class Activity {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	 
-	@Size(max=255)
+
+	@NotNull
+	@Size(min = 2, max = 255)
 	private String name;
-	
-	@ManyToOne(cascade=CascadeType.MERGE, targetEntity=Course.class)
-	   // @JoinColumn(name = "course_id")
-		private Course course;
-	
-	protected Activity()
-	{
-		
+
+	@ManyToOne
+	private Course course;
+
+	protected Activity() {
+
 	}
-	
-	//Mislim da konstruktor neće trebati kad se uspostavi mogućnost očitavanja redova
-	//tabela u drugim mikroservisima
-	public Activity(String name)
-	 {
-		 this.name=name;
-	 }
-	
-	public Activity(String name, Course course)
-	 {
-		 this.name=name;
-		 this.course = course;
-	 }
-	
+
+	public Activity(String name, Course course) {
+		this.name = name;
+		this.course = course;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -60,7 +53,7 @@ public class Activity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public Course getCourse() {
 		return course;
 	}
@@ -68,8 +61,5 @@ public class Activity {
 	public void setCourse(Course course) {
 		this.course = course;
 	}
-
-
-	 
 
 }

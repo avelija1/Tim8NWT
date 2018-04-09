@@ -19,49 +19,38 @@ import javax.persistence.JoinColumn;
 @Entity
 @Table(name = "User")
 public class User {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
 	@NotNull
-    @Size(min=2, max=30)
+	@Size(min = 2, max = 30)
 	private String lastName;
+
 	@NotNull
-    @Size(min=2, max=30)
+	@Size(min = 2, max = 30)
 	private String firstName;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE }, targetEntity = Course.class)
+	@JoinTable(name = "user_courses", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "course_id") })
+	private Set<Course> courses = new HashSet<>();
 	
-	protected User()
-	{
-		
+	protected User() {
+
 	}
-	
-	//Mislim da konstruktor neće trebati kad se uspostavi mogućnost očitavanja redova
-	//tabela u drugim mikroservisima
-	public User(String firstName,String lastName)
-	{
-		this.firstName=firstName;
-		this.lastName=lastName;
-	}
-	
-	public User(String firstName,String lastName, Set<Course> courses)
-	{
-		this.firstName=firstName;
-		this.lastName=lastName;
+
+	public User(String firstName, String lastName, Set<Course> courses) {
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.courses = courses;
 	}
-	
-	@ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                CascadeType.MERGE
-            },
-            targetEntity=Course.class)
-	@JoinTable(name = "user_courses",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "course_id") })
-    private Set<Course> courses = new HashSet<>();
-	
-	public Set<Course> getCourses(){
+
+	public Set<Course> getCourses() {
 		return courses;
 	}
+
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
 	}

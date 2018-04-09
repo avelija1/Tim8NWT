@@ -22,11 +22,9 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-//import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "user")
-
 public class User {
 
 	@Id
@@ -76,65 +74,14 @@ public class User {
 	protected User() {
 	}
 
-	public User(String firstName, String lastName, String userName, String email, String passwordHash, int year,
-			int semester) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.userName = userName;
-		this.email = email;
-		this.passwordHash = passwordHash;
-		this.year = year;
-		this.semester = semester;
-	}
-
-	public User(long id, String firstName, String lastName, String userName, String email, String passwordHash,
-			Role role, int year, int semester) {
-		this.id = id;
+	public User(String firstName, String lastName, String userName, String email, String passwordHash,
+			int year, int semester, Role role, Set<Course> courses) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
 		this.email = email;
 		this.passwordHash = passwordHash;
 		this.role = role;
-		this.year = year;
-		this.semester = semester;
-
-	}
-
-	public User(String firstName, String lastName, String userName, String email, String passwordHash, Role role,
-			int year, int semester) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.userName = userName;
-		this.email = email;
-		this.passwordHash = passwordHash;
-		this.role = role;
-		this.year = year;
-		this.semester = semester;
-
-	}
-
-	public User(String firstName, String lastName, String userName, String email, String passwordHash, Role role,
-			int year, int semester, Set<Course> courses) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.userName = userName;
-		this.email = email;
-		this.passwordHash = passwordHash;
-		this.role = role;
-		this.year = year;
-		this.semester = semester;
-		this.courses = courses;
-
-	}
-
-	public User(String firstName, String lastName, String userName, String email, String passwordHash, int year,
-			int semester, Set<Course> courses) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.userName = userName;
-		this.email = email;
-		this.passwordHash = passwordHash;
 		this.year = year;
 		this.semester = semester;
 		this.courses = courses;
@@ -212,11 +159,6 @@ public class User {
 		this.role = role;
 	}
 
-	@Override
-	public String toString() {
-		return String.format("User[id=%d, last name='%s', first name='%s']", id, lastName, firstName);
-	}
-
 	public Set<Course> getCourses() {
 		return courses;
 	}
@@ -231,5 +173,10 @@ public class User {
 
 	public void addTask(Task task) {
 		tasks.add(task);
+	}
+
+	@Override
+	public String toString() {
+		return String.format("User[id=%d, last name='%s', first name='%s']", id, lastName, firstName);
 	}
 }

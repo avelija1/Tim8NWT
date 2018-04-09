@@ -6,28 +6,25 @@ import com.example.demo.Models.Role;
 import com.example.demo.Models.User;
 
 public interface IUserService {
-	
-	 	User getUser(long id);
-        
-	    void createUser(User user);
-	     
-	    void editUser(Long id,User modifiedUser);
-	     
-	    void deleteUser(long id);
-	 
-	    List<User> getUsers(); 
-	    
-	    
-	    Role getRole(long id);
-        
-	    void createRole(Role role);
-	     
-	    void editRole(long id, Role modifiedRole);
-	     
-	    void deleteRole(long id);
-	 
-	    List<Role> getRoles(); 
-	   
-	     
-	  
+
+	User getUser(long id);
+
+	void createUser(User user);
+
+	void editUser(Long id, User modifiedUser);
+
+	void deleteUser(long id);
+
+	List<User> getUsers();
+
+	Role getRole(long id);
+
+	void createRole(Role role);
+
+	void editRole(long id, Role modifiedRole);
+
+	void deleteRole(long id);
+
+	List<Role> getRoles();
+
 }

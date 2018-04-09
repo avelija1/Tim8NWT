@@ -22,7 +22,6 @@ public class Course {
 	private String name;
 
 	@ManyToMany(fetch = FetchType.EAGER, targetEntity = User.class, mappedBy = "courses")
-
 	private Set<User> users = new HashSet<>();
 
 	protected Course() {
@@ -48,15 +47,12 @@ public class Course {
 		this.name = value;
 	}
 
-	@Override
-	public String toString() {
-
-		return String.format("Course[id=%d, Name='%s']", id, name);
-	}
-
 	public Set<User> getUsers() {
-
 		return users;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("Course[id=%d, Name='%s']", id, name);
+	}
 }
