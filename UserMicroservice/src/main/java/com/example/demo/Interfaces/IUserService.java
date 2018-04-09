@@ -6,6 +6,7 @@ import com.example.demo.Models.Role;
 import com.example.demo.Models.User;
 
 public interface IUserService {
+	
 	 	User getUser(long id);
         
 	    void createUser(User user);

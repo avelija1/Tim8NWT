@@ -17,38 +17,31 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "course")
 public class Course {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
+
 	@NotNull
-    @Size(min=2, max=50)
+	@Size(min = 2, max = 50)
 	private String name;
-	/*
-	@Size(max=25)
-	private String code;
-	
-	@DecimalMax("10.0") 
-	@DecimalMin("0.5")
-	private double ects;
-	
-	@Size(max=255)
-	private String description;*/
-	
-	@OneToMany(targetEntity = Activity.class, mappedBy = "course", fetch = FetchType.EAGER)
-    private Set<Activity> activities = new HashSet<>();
-	
-	protected Course() {}
-	
-	public Course(String name)
-	{
+
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "course", orphanRemoval = true)
+	private Set<Activity> activities = new HashSet<>();
+
+	protected Course() {
+	}
+
+	public Course(String name) {
 		this.name = name;
 	}
-	
-	
+
 	public long getId() {
 		return this.id;
 	}
@@ -56,46 +49,17 @@ public class Course {
 	public void setId(long value) {
 		this.id = value;
 	}
-	
+
 	public String getName() {
 		return this.name;
 	}
-	
+
 	public void setName(String value) {
 		this.name = value;
 	}
-/*
-	public String getCode() {
-		return this.code;
-	}
-	
-	public void setCode(String value) {
-		this.code = value;
-	}
 
-	public double getEcts() {
-		return this.ects;
-	}
-
-	public void setEcts(double value) {
-		this.ects = value;
-	}
-
-	public String getDescription() {
-		return this.description;
-	}
-	
-	public void setDescription(String value) {
-		this.description = value;
-	}*/
-	
 	public Set<Activity> getActivities() {
 		return activities;
 	}
-	/*
-	public void setActivities(Set<Activity> activities) {
-		this.users = users;
-	}*/
-	
-	
+
 }

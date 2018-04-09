@@ -24,123 +24,119 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 //import org.hibernate.validator.constraints.NotEmpty;
 
-
 @Entity
 @Table(name = "user")
 
 public class User {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@NotNull
-    @Size(min=2, max=30)
+	@Size(min = 2, max = 30)
 	private String lastName;
-	
+
 	@NotNull
-    @Size(min=2, max=30)
+	@Size(min = 2, max = 30)
 	private String firstName;
-	
-    @Size(min=2, max=30)
+
+	@Size(min = 2, max = 30)
 	private String userName;
-    
-    @NotEmpty 
-    @Email
+
+	@NotEmpty
+	@Email
 	private String email;
-    
-    @NotNull
-    @NotEmpty 
+
+	@NotNull
+	@NotEmpty
 	private String passwordHash;
-    
+
 	@NotNull
 	@Min(1)
 	@Max(5)
 	private int year;
-	
+
 	@NotNull
 	@Min(1)
 	@Max(6)
 	private int semester;
-	
+
 	@ManyToOne
-    private Role role;
-	
-	@ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                CascadeType.MERGE
-            },
-            targetEntity=Course.class)
-	@JoinTable(name = "user_courses",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "course_id") })
-    private Set<Course> courses = new HashSet<>();
-	
+	private Role role;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE }, targetEntity = Course.class)
+	@JoinTable(name = "user_courses", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "course_id") })
+	private Set<Course> courses = new HashSet<>();
+
 	@OneToMany(targetEntity = Task.class, mappedBy = "user", fetch = FetchType.EAGER)
 	private Set<Task> tasks = new HashSet<>();
-	 
-	protected User() {}
-	
-	public User(String firstName,String lastName, String userName, String email, String passwordHash, int year, int semester)
-	{
-		this.firstName=firstName;
-		this.lastName=lastName;
-		this.userName=userName;
-		this.email=email;
-		this.passwordHash=passwordHash;
-		this.year=year;
-		this.semester=semester;
+
+	protected User() {
 	}
-	
-	public User(long id,String firstName,String lastName, String userName, String email, String passwordHash, Role role, int year, int semester)
-	{
-		this.id=id;
-		this.firstName=firstName;
-		this.lastName=lastName;
-		this.userName=userName;
-		this.email=email;
-		this.passwordHash=passwordHash;
-		this.role=role;
-		this.year=year;
-		this.semester=semester;
-		
+
+	public User(String firstName, String lastName, String userName, String email, String passwordHash, int year,
+			int semester) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.email = email;
+		this.passwordHash = passwordHash;
+		this.year = year;
+		this.semester = semester;
 	}
-	
-	public User(String firstName,String lastName, String userName, String email, String passwordHash, Role role, int year, int semester)
-	{
-		this.firstName=firstName;
-		this.lastName=lastName;
-		this.userName=userName;
-		this.email=email;
-		this.passwordHash=passwordHash;
-		this.role=role;
-		this.year=year;
-		this.semester=semester;
-		
+
+	public User(long id, String firstName, String lastName, String userName, String email, String passwordHash,
+			Role role, int year, int semester) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.email = email;
+		this.passwordHash = passwordHash;
+		this.role = role;
+		this.year = year;
+		this.semester = semester;
+
 	}
-	
-	public User(String firstName,String lastName, String userName, String email, String passwordHash, Role role, int year, int semester, Set<Course> courses)
-	{
-		this.firstName=firstName;
-		this.lastName=lastName;
-		this.userName=userName;
-		this.email=email;
-		this.passwordHash=passwordHash;
-		this.role=role;
-		this.year=year;
-		this.semester=semester;
+
+	public User(String firstName, String lastName, String userName, String email, String passwordHash, Role role,
+			int year, int semester) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.email = email;
+		this.passwordHash = passwordHash;
+		this.role = role;
+		this.year = year;
+		this.semester = semester;
+
+	}
+
+	public User(String firstName, String lastName, String userName, String email, String passwordHash, Role role,
+			int year, int semester, Set<Course> courses) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.email = email;
+		this.passwordHash = passwordHash;
+		this.role = role;
+		this.year = year;
+		this.semester = semester;
 		this.courses = courses;
-	
+
 	}
-	
-	public User(String firstName,String lastName, String userName, String email, String passwordHash, int year, int semester, Set<Course> courses)
-	{
-		this.firstName=firstName;
-		this.lastName=lastName;
-		this.userName=userName;
-		this.email=email;
-		this.passwordHash=passwordHash;
-		this.year=year;
-		this.semester=semester;
+
+	public User(String firstName, String lastName, String userName, String email, String passwordHash, int year,
+			int semester, Set<Course> courses) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.email = email;
+		this.passwordHash = passwordHash;
+		this.year = year;
+		this.semester = semester;
 		this.courses = courses;
 	}
 
@@ -208,8 +204,6 @@ public class User {
 		this.semester = semester;
 	}
 
-	
-
 	public Role getRole() {
 		return role;
 	}
@@ -217,24 +211,25 @@ public class User {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-	
-	@Override 
+
+	@Override
 	public String toString() {
 		return String.format("User[id=%d, last name='%s', first name='%s']", id, lastName, firstName);
 	}
 
-	public Set<Course> getCourses(){
+	public Set<Course> getCourses() {
 		return courses;
 	}
+
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
 	}
-	
-	public Set<Task> getTasks(){
+
+	public Set<Task> getTasks() {
 		return tasks;
 	}
-	
+
 	public void addTask(Task task) {
-        tasks.add(task);
-    }
+		tasks.add(task);
+	}
 }

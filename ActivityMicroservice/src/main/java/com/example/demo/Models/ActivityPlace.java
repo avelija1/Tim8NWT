@@ -2,6 +2,7 @@ package com.example.demo.Models;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,16 +11,22 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //import java.util.List;
 @Entity
 @Table(name = "activity_place")
 public class ActivityPlace {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String buildingName;
 	private String classRoomName;
-	@OneToMany(targetEntity = Activity.class, mappedBy = "activityPlace", fetch = FetchType.EAGER)
+
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "activityPlace", orphanRemoval = true)
+
 	private Set<Activity> activities;
 
 	protected ActivityPlace() {
@@ -54,6 +61,10 @@ public class ActivityPlace {
 		this.classRoomName = classRoomName;
 	}
 
+	public void addActivity(Activity activity) {
+		activities.add(activity);
+	}
+
 	@Override
 	public String toString() {
 		return String.format("ActivityPlace[id=%d, BuildingName='%s']", id, buildingName);
@@ -62,9 +73,5 @@ public class ActivityPlace {
 	public Set<Activity> getActivities() {
 		return activities;
 	}
-	/*
-	public void setActivities(Set<Activity> activities) {
-		this.activities = activities;
-	}*/
 
 }

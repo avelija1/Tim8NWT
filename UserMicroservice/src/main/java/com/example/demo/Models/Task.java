@@ -1,4 +1,5 @@
 package com.example.demo.Models;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.persistence.CascadeType;
@@ -13,49 +14,51 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "task")
 public class Task {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
 	@NotNull
-    @Size(min=2, max=30)
+	@Size(min = 2, max = 30)
 	private String name;
+
 	@ManyToOne
-	// @JoinColumn(name = "user_id")
 	private User user;
-	
-	//private Long userId;
-	protected Task()
-	 {
-		
-	 }
-	
-	public Task(String name)
-	 {
-		 this.name=name;
-	 }
-	
-	public Task(String name, User user)
-	 {
-		 this.name=name;
-		 this.user = user;
-	 }
+
+	protected Task() {
+
+	}
+
+	public Task(String name) {
+		this.name = name;
+	}
+
+	public Task(String name, User user) {
+		this.name = name;
+		this.user = user;
+	}
 
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public User getUser(){
+
+	public User getUser() {
 		return user;
 	}
+
 	public void setUser(User user) {
 		this.user = user;
 	}

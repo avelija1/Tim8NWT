@@ -12,54 +12,53 @@ import javax.validation.constraints.Size;
 
 @Entity
 public class Activity {
-	 @Id
-	 @GeneratedValue(strategy=GenerationType.AUTO)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-		@NotNull
-	    @Size(min=2, max=50)
+
+	@NotNull
+	@Size(min = 2, max = 50)
 	private String name;
 
-	
-	@ManyToOne(cascade=CascadeType.MERGE, targetEntity=ActivityPlace.class)
-	   // @JoinColumn(name = "activity_place_id")
-		private ActivityPlace activityPlace;
-	
-	@ManyToOne(cascade=CascadeType.MERGE, targetEntity=ActivityType.class)
-	   // @JoinColumn(name = "activity_type_id")
-		private ActivityType activityType;
-	
-	@ManyToOne(cascade=CascadeType.MERGE, targetEntity=Course.class)
-	   // @JoinColumn(name = "course_id")
-		private Course course;
-	
-	 protected Activity() {}
+	@ManyToOne
+	private ActivityPlace activityPlace;
 
-	 public Activity(String name)
-	 {
-		 this.name=name;
-	 }
-	 public Activity(String name, ActivityType at,ActivityPlace ap, Course c)
-	 {
-		 this.name=name;
-		 this.activityType=at;
-		 this.activityPlace=ap;
-		 this.course=c;
-	 }
-	 public Activity(String name, ActivityType at)
-	 {
-		 this.name=name;
-		 this.activityType=at;
-	 }
-	 public Activity(String name,ActivityPlace ap)
-	 {
-		 this.name=name;
-		 this.activityPlace=ap;
-	 }
-	 public Activity(String name, Course c)
-	 {
-		 this.name=name;
-		 this.course=c;
-	 }
+	@ManyToOne
+	private ActivityType activityType;
+
+	@ManyToOne
+	private Course course;
+
+	protected Activity() {
+	}
+
+	public Activity(String name) {
+		this.name = name;
+	}
+
+	public Activity(String name, ActivityType at, ActivityPlace ap, Course c) {
+		this.name = name;
+		this.activityType = at;
+		this.activityPlace = ap;
+		this.course = c;
+	}
+
+	public Activity(String name, ActivityType at) {
+		this.name = name;
+		this.activityType = at;
+	}
+
+	public Activity(String name, ActivityPlace ap) {
+		this.name = name;
+		this.activityPlace = ap;
+	}
+
+	public Activity(String name, Course c) {
+		this.name = name;
+		this.course = c;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -74,15 +73,14 @@ public class Activity {
 
 	public void setName(String name) {
 		this.name = name;
-	}	
-	 @Override
-	    public String toString() {
-	        return String.format(
-	                "Activity[id=%d, Name='%s']",
-	                id, name);
-	    }
-	 
-	
+	}
+
+	@Override
+	public String toString() {
+
+		return String.format("Activity[id=%d, Name='%s']", id, name);
+	}
+
 	public ActivityType getActivityType() {
 		return activityType;
 	}
@@ -106,8 +104,5 @@ public class Activity {
 	public void setCourse(Course course) {
 		this.course = course;
 	}
-	
-
-	 
 
 }
