@@ -38,7 +38,7 @@ public class TaskController {
 
 	@RequestMapping(value = "/task/user/", method = RequestMethod.GET)
 	public ResponseEntity<User> getUserFromTask() {
-		List<ServiceInstance> instances = discoveryClient.getInstances("USERMICROSERVICE");
+		List<ServiceInstance> instances = discoveryClient.getInstances("ZUUL-SERVICE");
 		ServiceInstance serviceInstance = instances.get(0);
 
 		String baseUrl = serviceInstance.getUri().toString();
