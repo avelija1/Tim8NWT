@@ -31,6 +31,7 @@ public class CourseController {
 	@RequestMapping(value = "/course/", method = RequestMethod.GET)
 	public ResponseEntity<List<Course>> getCourses() {
 		List<Course> courses = courseService.getCourses();
+		courses.add(new Course("testCourse","testCode",5,"This is test course"));
 		if (courses.isEmpty()) {
 			return new ResponseEntity<List<Course>>(HttpStatus.NO_CONTENT);
 		}
