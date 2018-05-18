@@ -1,0 +1,54 @@
+version: '2.2'
+services:
+  eurekaservice:
+    container_name: eurekaservice
+    build: ./eureka-service
+    image: eurekaservice:latest
+    ports:
+      - 8090:8090
+    networks:
+      - study-planner-network
+  gatway:
+    build: ./zuul-service
+    image: zuul-service:latest
+    depends_on:
+      - eurekaservice
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_APPLICATION_NAME=ZUUL-SERVICE
+      - SPRING_PROFILES_ACTIVE=enableEureka
+      - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eurekaservice:8090/eureka
+    networks:
+      - study-planner-network
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - study-planner-network   
+  taskmicroservice:
+    build: ./TaskMicroservice
+    image: taskmicroservice:latest
+    depends_on: 
+      - eurekaservice
+      - rabbitmq
+    ports: 
+      - 8092:8092
+    environment:
+      - SPRING_APPLICATION_NAME=TASKMICROSERVICE
+      - SPRING_PROFILES_ACTIVE=enableEureka
+      - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eurekaservice:8090/eureka
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    networks:
+      - study-planner-network
+networks: 
+  study-planner-network:
+    driver: bridge
