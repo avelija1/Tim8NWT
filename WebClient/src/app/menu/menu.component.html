@@ -1,0 +1,36 @@
+<mat-card class="demo-panel">
+  <mat-card-content>
+    <button type="button" color="primary" mat-raised-button (click)="sidenav.open()">
+      <i class="material-icons">menu</i>
+    </button>
+    <mat-sidenav-container class="example-container">
+      <mat-sidenav #sidenav class="example-sidenav">
+          <button [routerLink]="['/home']" style="width:100%; text-align:left; margin-bottom:5px;" type="button" color="primary" mat-raised-button (click)="sidenav.open()">
+            <i class="material-icons">home</i> Home
+          </button>
+          <br>
+          <button [routerLink]="['/courses']" style="width:100%; text-align:left; margin-bottom:5px;" type="button" color="primary" mat-raised-button (click)="sidenav.open()">
+            <i class="material-icons">school</i> Courses
+          </button>
+          <br>
+          <button [routerLink]="['/activities']" style="width:100%; text-align:left; margin-bottom:5px;" type="button" color="primary" mat-raised-button (click)="sidenav.open()">
+            <i class="material-icons">notifications_none</i> Activities
+          </button>
+          <br>
+          <button [routerLink]="['/staff']" style="width:100%; text-align:left; margin-bottom:5px;" type="button" color="primary" mat-raised-button (click)="sidenav.open()">
+            <i class="material-icons">person</i> Staff
+          </button>
+          <br>
+          <button [routerLink]="['/students']" style="width:100%; text-align:left; margin-bottom:5px;" type="button" color="primary" mat-raised-button (click)="sidenav.open()">
+            <i class="material-icons">people</i> Students
+          </button>
+      </mat-sidenav>
+    
+      <div class="example-sidenav-content">
+          <router-outlet></router-outlet>
+        
+      </div>
+    
+    </mat-sidenav-container>
+  </mat-card-content>
+</mat-card>
