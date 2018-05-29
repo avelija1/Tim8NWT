@@ -16,6 +16,7 @@ import { StaffComponent } from './staff/staff.component';
 import { StudentsComponent } from './students/students.component';
 import { DxDataGridModule } from 'devextreme-angular';
 import { SnackService } from './services/snack.service';
+import {  DxScrollViewModule  } from 'devextreme-angular/ui/scroll-view';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -53,6 +54,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     DxDataGridModule,
     MatSnackBarModule,
+    DxScrollViewModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only

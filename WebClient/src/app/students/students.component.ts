@@ -8,7 +8,7 @@ import { SnackService } from '../services/snack.service';
 })
 export class StudentsComponent implements OnInit {
 
-  displayedColumns = ['firstname', 'lastname', 'username', 'email', 'year', 'semester', 'courses'];
+  displayedColumns = ['firstname', 'lastname', 'username', 'email', 'year', 'semester'];
   dataSource = ELEMENT_DATA;
 
   courses: any[] = [
@@ -58,26 +58,19 @@ export class StudentsComponent implements OnInit {
 
 onRowInserted(e) {
   setTimeout(() => this.snackService.showSnack("Inserted", 'Success', 5000));
-  // this.snackService.showSnack("Inserted", 'Success', 5000);
-  // this.refreshDataGrid.bind(this);
-  // this._gridBoxValue = -1;
-  // this._gridSelectedRowKeys = null;
 }
 
 onRowRemoved(e) {
   setTimeout(() => this.snackService.showSnack("Deleted", 'Success', 5000));
-  // this.snackService.showSnack("Removed", 'Success', 5000);
-  // this.refreshDataGrid.bind(this);
 }
 
 onRowUpdated(e) {
   setTimeout(() => this.snackService.showSnack("Updated", 'Success', 5000));
-  // this.snackService.showSnack("Updated", 'Success', 5000);
-//   this.refreshDataGrid.bind(this);
-//   this._gridBoxValue = -1;
-//   this._gridSelectedRowKeys = null;
 }
 
+onRowInserting(e) {
+  e.data.courses=[];
+}
 
 }
 
@@ -88,9 +81,15 @@ export interface Students {
   email: string;
   year: number;
   semester: number;
-  courses: number;
+  courses: any[];
 }
 
 const ELEMENT_DATA: Students[] = [
-  {firstname: 'Selma', lastname: 'Glavic', username: 'sg1', email: 'sg1@email.com', year: 4, semester: 2, courses: 1}
+  {firstname: 'Selma', lastname: 'Glavic', username: 'sg1', email: 'sg1@email.com', year: 4, semester: 2, courses: [
+    {id: 1, name: 'TP', code: 'TP123', ects: 8.5, description: 'opiss'},
+    {id: 2, name: 'IM1', code: 'IM111', ects: 9, description: 'matematika'},
+    {id: 3, name: 'IM2', code: 'IM222', ects: 9.5, description: 'inzzz'}
+  ]},
+  {firstname: 'Amer', lastname: 'Kodzaga', username: 'akodzaga1', email: 'akodzaga1@etf.unsa.ba', year: 4, semester: 2, courses: [
+  ]}
 ];
