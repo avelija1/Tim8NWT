@@ -82,26 +82,10 @@ onRowInserting(e) {
 
 onRowInserted(e) {
   setTimeout(() => this.snackService.showSnack("Inserted", 'Success', 5000));
-<<<<<<< Updated upstream
 }
 
 onRowRemoved(e) {
   setTimeout(() => this.snackService.showSnack("Deleted", 'Success', 5000));
-=======
-  
-console.log(e.data.building);
-  // this.snackService.showSnack("Inserted", 'Success', 5000);
-  // this.refreshDataGrid.bind(this);
-  // this._gridBoxValue = -1;
-  // this._gridSelectedRowKeys = null;
-}
-
-onRowRemoved(e) {
-
-  //setTimeout(() => this.snackService.showSnack("Deleted", 'Success', 5000));
-  // this.snackService.showSnack("Removed", 'Success', 5000);
-  // this.refreshDataGrid.bind(this);
->>>>>>> Stashed changes
 }
 
 onRowUpdated(e) {
