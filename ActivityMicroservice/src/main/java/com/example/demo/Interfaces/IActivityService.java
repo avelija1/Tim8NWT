@@ -2,6 +2,8 @@ package com.example.demo.Interfaces;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import com.example.demo.Models.Activity;
 import com.example.demo.Models.ActivityPlace;
 import com.example.demo.Models.ActivityType;

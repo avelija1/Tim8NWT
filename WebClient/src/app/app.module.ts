@@ -17,8 +17,14 @@ import { StudentsComponent } from './students/students.component';
 import { DxDataGridModule } from 'devextreme-angular';
 import { SnackService } from './services/snack.service';
 import {  DxScrollViewModule  } from 'devextreme-angular/ui/scroll-view';
+
 import {AuthInterceptor} from './auth.interceptor';
 import {AuthGuard} from './auth-guard.service';
+
+import { TypesComponent } from './types/types.component';
+import { PlacesComponent } from './places/places.component';
+import { TasksComponent } from './tasks/tasks.component';
+
 import { ActivityService } from './activities/activity.service';
 
 const appRoutes: Routes = [
@@ -28,6 +34,10 @@ const appRoutes: Routes = [
   { path: 'activities', component: ActivitiesComponent, canActivate: [AuthGuard] },
   { path: 'staff', component: StaffComponent, canActivate: [AuthGuard] },
   { path: 'students', component: StudentsComponent, canActivate: [AuthGuard] }
+  { path: 'types', component: TypesComponent },
+  { path: 'places', component: PlacesComponent },
+  { path: 'tasks', component: TasksComponent },
+  { path: 'users', component: UserListComponent }
 ]
 
 @NgModule({
@@ -42,7 +52,10 @@ const appRoutes: Routes = [
     StudentsComponent,
     InfoSnackbarComponent,
     SuccessSnackbarComponent,
-    ErrorSnackbarComponent
+    ErrorSnackbarComponent,
+    TypesComponent,
+    PlacesComponent,
+    TasksComponent
     
   ],
   imports: [
@@ -64,9 +77,11 @@ const appRoutes: Routes = [
      
     )
   ],
+
   providers: [
 	UserService, 
 	SnackService, 
+  ActivityService,
 	AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
@@ -74,6 +89,7 @@ const appRoutes: Routes = [
       multi: true
     },
 	],
+
   entryComponents:[
     InfoSnackbarComponent,
     SuccessSnackbarComponent,

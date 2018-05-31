@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SnackService } from '../services/snack.service';
-
+import {ActivityService} from './activity.service';
+import { Activity } from './activity';
 @Component({
   selector: 'app-activities',
   templateUrl: './activities.component.html',
@@ -10,7 +11,7 @@ export class ActivitiesComponent implements OnInit {
 
   displayedColumns = ['name', 'type', 'building', 'classroom', 'course'];
   dataSource = ELEMENT_DATA;
-
+  newActivity:Activity = new Activity();
   courses: any[] = [
     {id: 1, name: 'TP', code: 'TP123', ects: 8.5, description: 'opiss'},
     {id: 2, name: 'IM1', code: 'IM111', ects: 9, description: 'matematika'},
@@ -22,13 +23,18 @@ export class ActivitiesComponent implements OnInit {
     {value: 2, viewValue: 'Predavanje'},
     {value: 3, viewValue: 'Tutorijal'}
   ];
+  nesto:any;
 
-  constructor(public snackService: SnackService) { }
+  constructor(public snackService: SnackService, public activityService:ActivityService) { }
 
   ngOnInit() {
+    this.activityService.getAll().subscribe(data => {
+      this.dataSource=data;
+    });
   }
 
   onCellPrepared(e) {
+    
     if (e.rowType === 'data' && e.column.command === 'edit') {
         var isEditing = e.row.isEditing,
             cellElement = e.cellElement;
@@ -61,27 +67,29 @@ export class ActivitiesComponent implements OnInit {
        width: 60
    });
 }
+onRowInserting(e) {
+  if(e.data.name == "" || e.data.type == null  || e.data.building==null || e.data.classroom==null || e.data.course==null)
+  {
+    alert("All fields are mandatory!");
+    e.cancel=true;
+    return;
+  }
+  this.newActivity.name=e.data.name;
+  this.newActivity.activityType=null;
+  this.newActivity.activityPlace=null;
+  this.newActivity.course=null;
+}
 
 onRowInserted(e) {
   setTimeout(() => this.snackService.showSnack("Inserted", 'Success', 5000));
-  // this.snackService.showSnack("Inserted", 'Success', 5000);
-  // this.refreshDataGrid.bind(this);
-  // this._gridBoxValue = -1;
-  // this._gridSelectedRowKeys = null;
 }
 
 onRowRemoved(e) {
   setTimeout(() => this.snackService.showSnack("Deleted", 'Success', 5000));
-  // this.snackService.showSnack("Removed", 'Success', 5000);
-  // this.refreshDataGrid.bind(this);
 }
 
 onRowUpdated(e) {
   setTimeout(() => this.snackService.showSnack("Updated", 'Success', 5000));
-  // this.snackService.showSnack("Updated", 'Success', 5000);
-//   this.refreshDataGrid.bind(this);
-//   this._gridBoxValue = -1;
-//   this._gridSelectedRowKeys = null;
 }
 
 }

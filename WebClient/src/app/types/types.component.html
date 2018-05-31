@@ -1,0 +1,40 @@
+<h2>
+    Activity Types
+</h2>
+  
+  <dx-data-grid
+  [width]="800"
+  [dataSource]="dataSource"
+  [columnMinWidth]="100"
+  [selection]="{ mode: 'single' }"
+  [hoverStateEnabled]="true"
+  [allowColumnResizing]="true"
+  [columnResizingMode]="'widget'"
+  [columnAutoWidth]="true"
+  [showRowLines]="true"
+  [paging]="{ enabled: true, pageSize: 5 }"
+  [scrolling]="{ showScrollbar: 'always' }"
+  [height]="'auto'"
+  (onCellPrepared)="onCellPrepared($event)"
+  (onContentReady)="onContentReady($event)"
+  (onRowInserted)="onRowInserted($event)"
+  (onRowRemoved)="onRowRemoved($event)"
+  (onRowUpdated)="onRowUpdated($event)"
+  >
+  <dxo-paging [enabled]="true" [pageIndex]="0" [pageSize]="5"></dxo-paging>
+  <dxo-pager 
+  [showPageSizeSelector]="true"
+  [allowedPageSizes]="[5, 10, 20]"
+  [visible]="true"
+  [showInfo]="true">
+  </dxo-pager>
+  
+  <dxo-editing mode="popup" [allowUpdating]="true" [allowAdding]="true" [allowDeleting]="true">
+      <dxo-popup title="Edit Activity Types" [showTitle]="true" [width]="800" [height]="500"></dxo-popup>
+  </dxo-editing>
+  
+
+  <dxi-column dataField="type" caption="Name"></dxi-column>
+
+  
+  </dx-data-grid>

@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.example.demo.Interfaces.IActivityService;
 import com.example.demo.Models.Activity;
@@ -19,7 +20,7 @@ import com.example.demo.Repositories.ActivityTypeRepository;
 
 @Service("activityService")
 @Transactional
-
+@CrossOrigin(origins = "http://localhost:4200")
 public class ActivityService implements IActivityService {
 
 	private static final AtomicLong counter = new AtomicLong();
@@ -52,6 +53,7 @@ public class ActivityService implements IActivityService {
 	}
 
 	@Override
+	@CrossOrigin(origins = "http://localhost:4200")
 	public void CreateActivity(Activity newActivity) {
 		activityRepository.save(newActivity);
 	}
