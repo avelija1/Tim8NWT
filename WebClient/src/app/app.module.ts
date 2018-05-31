@@ -17,6 +17,9 @@ import { StudentsComponent } from './students/students.component';
 import { DxDataGridModule } from 'devextreme-angular';
 import { SnackService } from './services/snack.service';
 import {  DxScrollViewModule  } from 'devextreme-angular/ui/scroll-view';
+import { TypesComponent } from './types/types.component';
+import { PlacesComponent } from './places/places.component';
+import { TasksComponent } from './tasks/tasks.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -24,7 +27,10 @@ const appRoutes: Routes = [
   { path: 'courses', component: CoursesComponent },
   { path: 'activities', component: ActivitiesComponent },
   { path: 'staff', component: StaffComponent },
-  { path: 'students', component: StudentsComponent }
+  { path: 'students', component: StudentsComponent },
+  { path: 'types', component: TypesComponent },
+  { path: 'places', component: PlacesComponent },
+  { path: 'tasks', component: TasksComponent }
 ]
 
 @NgModule({
@@ -39,7 +45,10 @@ const appRoutes: Routes = [
     StudentsComponent,
     InfoSnackbarComponent,
     SuccessSnackbarComponent,
-    ErrorSnackbarComponent
+    ErrorSnackbarComponent,
+    TypesComponent,
+    PlacesComponent,
+    TasksComponent
     
   ],
   imports: [
