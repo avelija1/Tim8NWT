@@ -15,7 +15,7 @@ export class CoursesComponent implements OnInit {
   constructor(public snackService: SnackService) { }
 
   ngOnInit() {
-  }
+      }
 
   onCellPrepared(e) {
     if (e.rowType === 'data' && e.column.command === 'edit') {

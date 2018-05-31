@@ -17,9 +17,13 @@ import { StudentsComponent } from './students/students.component';
 import { DxDataGridModule } from 'devextreme-angular';
 import { SnackService } from './services/snack.service';
 import {  DxScrollViewModule  } from 'devextreme-angular/ui/scroll-view';
+<<<<<<< Updated upstream
 import { TypesComponent } from './types/types.component';
 import { PlacesComponent } from './places/places.component';
 import { TasksComponent } from './tasks/tasks.component';
+=======
+import { ActivityService } from './activities/activity.service';
+>>>>>>> Stashed changes
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -28,9 +32,14 @@ const appRoutes: Routes = [
   { path: 'activities', component: ActivitiesComponent },
   { path: 'staff', component: StaffComponent },
   { path: 'students', component: StudentsComponent },
+<<<<<<< Updated upstream
   { path: 'types', component: TypesComponent },
   { path: 'places', component: PlacesComponent },
   { path: 'tasks', component: TasksComponent }
+=======
+  { path: 'users', component: UserListComponent }
+  
+>>>>>>> Stashed changes
 ]
 
 @NgModule({
@@ -69,7 +78,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [UserService, SnackService],
+  providers: [UserService, SnackService, ActivityService],
   entryComponents:[
     InfoSnackbarComponent,
     SuccessSnackbarComponent,
