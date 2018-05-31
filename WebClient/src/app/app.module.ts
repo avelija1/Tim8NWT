@@ -32,14 +32,11 @@ const appRoutes: Routes = [
   { path: 'activities', component: ActivitiesComponent },
   { path: 'staff', component: StaffComponent },
   { path: 'students', component: StudentsComponent },
-<<<<<<< Updated upstream
   { path: 'types', component: TypesComponent },
   { path: 'places', component: PlacesComponent },
-  { path: 'tasks', component: TasksComponent }
-=======
+  { path: 'tasks', component: TasksComponent },
   { path: 'users', component: UserListComponent }
   
->>>>>>> Stashed changes
 ]
 
 @NgModule({
