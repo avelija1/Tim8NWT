@@ -17,13 +17,10 @@ import { StudentsComponent } from './students/students.component';
 import { DxDataGridModule } from 'devextreme-angular';
 import { SnackService } from './services/snack.service';
 import {  DxScrollViewModule  } from 'devextreme-angular/ui/scroll-view';
-<<<<<<< Updated upstream
 import { TypesComponent } from './types/types.component';
 import { PlacesComponent } from './places/places.component';
 import { TasksComponent } from './tasks/tasks.component';
-=======
 import { ActivityService } from './activities/activity.service';
->>>>>>> Stashed changes
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
