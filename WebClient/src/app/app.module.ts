@@ -2,9 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { UserService } from './shared/user/user.service';
 import {UserListComponent} from './user-list/user-list.component';
-
+import { HttpModule } from '@angular/http';
 import { AppComponent, InfoSnackbarComponent, ErrorSnackbarComponent, SuccessSnackbarComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { MenuComponent } from './menu/menu.component';
 import { MatMenuModule, MatButtonModule, MatIconModule, MatCardModule, MatSidenavModule, MatTableModule, MatTableDataSource, MatSnackBarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,23 +17,27 @@ import { StudentsComponent } from './students/students.component';
 import { DxDataGridModule } from 'devextreme-angular';
 import { SnackService } from './services/snack.service';
 import {  DxScrollViewModule  } from 'devextreme-angular/ui/scroll-view';
+
+import {AuthInterceptor} from './auth.interceptor';
+import {AuthGuard} from './auth-guard.service';
+
 import { TypesComponent } from './types/types.component';
 import { PlacesComponent } from './places/places.component';
 import { TasksComponent } from './tasks/tasks.component';
+
 import { ActivityService } from './activities/activity.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'courses', component: CoursesComponent },
-  { path: 'activities', component: ActivitiesComponent },
-  { path: 'staff', component: StaffComponent },
-  { path: 'students', component: StudentsComponent },
-  { path: 'types', component: TypesComponent },
-  { path: 'places', component: PlacesComponent },
-  { path: 'tasks', component: TasksComponent },
-  { path: 'users', component: UserListComponent }
-  
+  { path: 'courses', component: CoursesComponent, canActivate: [AuthGuard] },
+  { path: 'activities', component: ActivitiesComponent, canActivate: [AuthGuard] },
+  { path: 'staff', component: StaffComponent, canActivate: [AuthGuard] },
+  { path: 'students', component: StudentsComponent, canActivate: [AuthGuard] },
+  { path: 'types', component: TypesComponent, canActivate: [AuthGuard] },
+  { path: 'places', component: PlacesComponent, canActivate: [AuthGuard] },
+  { path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
+  { path: 'users', component: UserListComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({
@@ -55,6 +59,7 @@ const appRoutes: Routes = [
     
   ],
   imports: [
+  HttpModule,
     BrowserModule,
     HttpClientModule,
     MatButtonModule,
@@ -69,10 +74,22 @@ const appRoutes: Routes = [
     DxScrollViewModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+     
     )
   ],
-  providers: [UserService, SnackService, ActivityService],
+
+  providers: [
+	UserService, 
+	SnackService, 
+  ActivityService,
+	AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+	],
+
   entryComponents:[
     InfoSnackbarComponent,
     SuccessSnackbarComponent,

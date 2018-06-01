@@ -26,7 +26,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.example.demo.Models.Role;
 import com.example.demo.Models.User;
 import com.example.demo.Services.UserService;
-
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class UserController {
 
