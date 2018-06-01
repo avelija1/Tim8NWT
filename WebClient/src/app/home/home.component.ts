@@ -11,12 +11,14 @@ export class HomeComponent implements OnInit {
 
   username: string = 'bob';
   password: string = 'abc123';
+  isLogged: boolean;
 
 
   constructor(private router: Router, private userService: UserService) {
   }
 
   ngOnInit() {
+    this.isLogged = false;
   }
   
    login() {
@@ -29,6 +31,8 @@ export class HomeComponent implements OnInit {
         this.router.navigate(['home']);
       }
     );
+    
+    this.isLogged = true;
   }
   
   logout() {

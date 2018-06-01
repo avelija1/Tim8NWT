@@ -33,11 +33,11 @@ const appRoutes: Routes = [
   { path: 'courses', component: CoursesComponent, canActivate: [AuthGuard] },
   { path: 'activities', component: ActivitiesComponent, canActivate: [AuthGuard] },
   { path: 'staff', component: StaffComponent, canActivate: [AuthGuard] },
-  { path: 'students', component: StudentsComponent, canActivate: [AuthGuard] }
-  { path: 'types', component: TypesComponent },
-  { path: 'places', component: PlacesComponent },
-  { path: 'tasks', component: TasksComponent },
-  { path: 'users', component: UserListComponent }
+  { path: 'students', component: StudentsComponent, canActivate: [AuthGuard] },
+  { path: 'types', component: TypesComponent, canActivate: [AuthGuard] },
+  { path: 'places', component: PlacesComponent, canActivate: [AuthGuard] },
+  { path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
+  { path: 'users', component: UserListComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({
