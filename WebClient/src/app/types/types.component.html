@@ -20,6 +20,7 @@
   (onRowInserted)="onRowInserted($event)"
   (onRowRemoved)="onRowRemoved($event)"
   (onRowUpdated)="onRowUpdated($event)"
+  (onRowInserting)="onRowInserting($event)"
   >
   <dxo-paging [enabled]="true" [pageIndex]="0" [pageSize]="5"></dxo-paging>
   <dxo-pager 
@@ -30,11 +31,12 @@
   </dxo-pager>
   
   <dxo-editing mode="popup" [allowUpdating]="true" [allowAdding]="true" [allowDeleting]="true">
-      <dxo-popup title="Edit Activity Types" [showTitle]="true" [width]="800" [height]="500"></dxo-popup>
+      <dxo-popup title="" [showTitle]="true" [width]="800" [height]="500"></dxo-popup>
   </dxo-editing>
   
 
-  <dxi-column dataField="type" caption="Name"></dxi-column>
+  <dxi-column dataField="name" caption="Name"><dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column>
 
   
   </dx-data-grid>

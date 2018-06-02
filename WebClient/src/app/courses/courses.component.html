@@ -18,6 +18,7 @@
 (onCellPrepared)="onCellPrepared($event)"
 (onContentReady)="onContentReady($event)"
 (onRowInserted)="onRowInserted($event)"
+(onRowInserting)="onRowInserting($event)"
 (onRowRemoved)="onRowRemoved($event)"
 (onRowUpdated)="onRowUpdated($event)"
 >
@@ -30,12 +31,16 @@
 </dxo-pager>
 
 <dxo-editing mode="popup" [allowUpdating]="true" [allowAdding]="true" [allowDeleting]="true">
-    <dxo-popup title="Edit Courses" [showTitle]="true" [width]="800" [height]="500"></dxo-popup>
+    <dxo-popup title="" [showTitle]="true" [width]="800" [height]="500"></dxo-popup>
 </dxo-editing>
 
-<dxi-column dataField="name" caption="Name"></dxi-column>
-<dxi-column dataField="code" caption="Code"></dxi-column>
-<dxi-column dataField="ects" caption="ECTS" dataType="number" format="0#.0"></dxi-column>
-<dxi-column dataField="description" caption="Description"></dxi-column>
+<dxi-column dataField="name" caption="Name">        <dxi-validation-rule type="required"></dxi-validation-rule>
+</dxi-column>
+<dxi-column dataField="code" caption="Code">        <dxi-validation-rule type="required"></dxi-validation-rule>
+</dxi-column>
+<dxi-column dataField="ects" caption="ECTS" dataType="number" format="0#.0">        <dxi-validation-rule type="required"></dxi-validation-rule>
+</dxi-column>
+<dxi-column dataField="description" caption="Description">        <dxi-validation-rule type="required"></dxi-validation-rule>
+</dxi-column>
 
 </dx-data-grid>

@@ -35,8 +35,6 @@ public class ActivityController {
 	public ResponseEntity<List<Activity>> GetActivities() {
 
 		List<Activity> activities = activityService.GetActivities();
-		activities.add(new Activity("testActivity",null,null,null));
-
 		if (activities.isEmpty()) {
 			return new ResponseEntity<List<Activity>>(HttpStatus.NO_CONTENT);
 		}

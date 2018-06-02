@@ -1,7 +1,6 @@
 <h2>
     Activities
 </h2>
-  
   <dx-data-grid
   [width]="800"
   [dataSource]="dataSource"
@@ -21,7 +20,13 @@
   (onRowRemoved)="onRowRemoved($event)"
   (onRowUpdated)="onRowUpdated($event)"
   (onRowInserting)="onRowInserting($event)"
+  (onRowUpdating)="onRowUpdating($event)"
   >
+
+
+
+
+
   <dxo-paging [enabled]="true" [pageIndex]="0" [pageSize]="5"></dxo-paging>
   <dxo-pager 
   [showPageSizeSelector]="true"
@@ -31,25 +36,25 @@
   </dxo-pager>
   
   <dxo-editing mode="popup" [allowUpdating]="true" [allowAdding]="true" [allowDeleting]="true">
-      <dxo-popup title="Edit Activities" [showTitle]="true" [width]="800" [height]="500"></dxo-popup>
-  </dxo-editing>
-  
-  <dxi-column dataField="name" caption="Name"></dxi-column>
-  <dxi-column dataField="type" caption="Type">
+        <dxo-popup title="" [showTitle]="true" [width]="800" [height]="500"></dxo-popup>
+    </dxo-editing>
+    
+  <dxi-column dataField="name" caption="Name"> <dxi-validation-rule type="required"></dxi-validation-rule></dxi-column>
+  <dxi-column dataField="activityType.id" caption="Activity Type" >
+        <dxi-validation-rule type="required"></dxi-validation-rule>
       <dxo-lookup
       [dataSource]="types"
-      displayExpr="viewValue"
-      valueExpr="value">
-  </dxo-lookup>
-  </dxi-column>
-  <dxi-column dataField="building" caption="Building"></dxi-column>
-  <dxi-column dataField="classroom" caption="Classroom"></dxi-column>
-  <dxi-column dataField="course" caption="Course">
-      <dxo-lookup
-      [dataSource]="courses"
       displayExpr="name"
       valueExpr="id">
   </dxo-lookup>
   </dxi-column>
-  
-  </dx-data-grid>
+  <dxi-column dataField="activityPlace.id" caption="Activity Place" >
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+    <dxo-lookup
+    [dataSource]="places"
+    displayExpr="classRoomName"
+    valueExpr="id"
+    >
+</dxo-lookup>
+</dxi-column>
+</dx-data-grid>

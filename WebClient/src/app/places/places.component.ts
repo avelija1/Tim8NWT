@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SnackService } from '../services/snack.service';
+import { ActivityPlace } from '../activities/activityPlace';
+import { ActivityService } from '../services/activity.service';
 
 @Component({
   selector: 'app-places',
@@ -7,13 +9,17 @@ import { SnackService } from '../services/snack.service';
   styleUrls: ['./places.component.css']
 })
 export class PlacesComponent implements OnInit {
-  displayedColumns = [ 'building', 'classroom'];
-  dataSource = ELEMENT_DATA;
+  dataSource;
+  newActivityPlace:ActivityPlace = new ActivityPlace();
 
-
-  constructor(public snackService: SnackService) { }
+  constructor(public snackService: SnackService, public activityService:ActivityService) { }
 
   ngOnInit() {
+    this.dataSource=this.activityService.getAllActivityPlaces().subscribe(data => {
+      if(data!=null){
+      this.dataSource=data;
+      }
+    });
   }
 
   onCellPrepared(e) {
@@ -50,27 +56,25 @@ export class PlacesComponent implements OnInit {
    });
 }
 
+onRowInserting(e) {
+  this.newActivityPlace.buildingName=e.data.buildingName;
+  this.newActivityPlace.classRoomName=e.data.classRoomName;
+  console.log(this.newActivityPlace);
+  this.activityService.postActivityPlace(this.newActivityPlace);
+}
+
+
 onRowInserted(e) {
   setTimeout(() => this.snackService.showSnack("Inserted", 'Success', 5000));
 }
 
 onRowRemoved(e) {
+  this.activityService.deleteActivityPlace(e.data.id);
   setTimeout(() => this.snackService.showSnack("Deleted", 'Success', 5000));
 }
 
 onRowUpdated(e) {
+  this.activityService.putActivityPlace(e.key);
   setTimeout(() => this.snackService.showSnack("Updated", 'Success', 5000));
 }
-
 }
-
-export interface Places {
-  building: string;
-  classroom: string;
-}
-
-const ELEMENT_DATA: Places[] = [
-  {building: 'VA', classroom: 'VA'},
-  {building: 'VA', classroom: 'VA'},
-  {building: 'Glavna', classroom: 'S10'}
-];

@@ -34,12 +34,11 @@ public class UserController {
 	UserService userService;
 
 	@RequestMapping(value = "/user/", method = RequestMethod.GET)
-	@CrossOrigin(origins = "http://localhost:4200")
+	
 	public ResponseEntity<List<User>> getUsers() {
 
 		List<User> users = userService.getUsers();
-		users.add(new User("Selma", "Glavić", "sgl1", "sgl1@etf.unsa.ba", "sifra", 1, 2, null, null));
-
+		
 		if (users.isEmpty()) {
 
 			return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);

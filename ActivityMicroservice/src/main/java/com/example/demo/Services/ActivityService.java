@@ -149,7 +149,7 @@ public class ActivityService implements IActivityService {
 			ActivityPlace activityPlace = iterator.next();
 
 			if (activityPlace.getId() == id) {
-				activityTypeRepository.delete(id);
+				activityPlaceRepository.delete(id);
 			}
 		}
 

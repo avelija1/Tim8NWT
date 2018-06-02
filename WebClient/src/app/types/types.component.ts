@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SnackService } from '../services/snack.service';
+import { ActivityType } from '../activities/activityType';
+import { ActivityService } from '../services/activity.service';
 
 @Component({
   selector: 'app-types',
@@ -9,13 +11,17 @@ import { SnackService } from '../services/snack.service';
 export class TypesComponent implements OnInit {
   
 
-  displayedColumns = ['type'];
-  dataSource = ELEMENT_DATA;
+  dataSource;
+  newActivityType:ActivityType = new ActivityType();
 
-
-  constructor(public snackService: SnackService) { }
+  constructor(public snackService: SnackService, public activityService:ActivityService) { }
 
   ngOnInit() {
+    this.dataSource=this.activityService.getAllActivityTypes().subscribe(data => {
+      if(data!=null){
+      this.dataSource=data;
+      }
+    });
   }
 
   onCellPrepared(e) {
@@ -52,27 +58,25 @@ export class TypesComponent implements OnInit {
    });
 }
 
+onRowInserting(e) {
+  this.newActivityType.name=e.data.name;
+  this.activityService.postActivityType(this.newActivityType);
+}
+
+
 onRowInserted(e) {
   setTimeout(() => this.snackService.showSnack("Inserted", 'Success', 5000));
 }
 
 onRowRemoved(e) {
+  this.activityService.deleteActivityType(e.data.id);
   setTimeout(() => this.snackService.showSnack("Deleted", 'Success', 5000));
 }
 
 onRowUpdated(e) {
+  this.activityService.putActivityType(e.key);
   setTimeout(() => this.snackService.showSnack("Updated", 'Success', 5000));
 }
 
 }
-
-export interface Types {
-  type: string;
-}
-
-const ELEMENT_DATA: Types[] = [
-  {type: 'Ispit'},
-  {type: 'Predavanje'},
-  {type: 'Tutorijal'}
-];
 

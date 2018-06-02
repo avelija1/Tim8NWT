@@ -56,8 +56,8 @@ public class CourseService implements ICourseService {
 		course.setDescription(modifiedCourse.getDescription());
 		course.setEcts(modifiedCourse.getEcts());
 		course.setName(modifiedCourse.getName());
-		course.setUsers(modifiedCourse.getUsers());
-		course.setActivities(modifiedCourse.getActivities());
+		//course.setUsers(modifiedCourse.getUsers());
+		//course.setActivities(modifiedCourse.getActivities());
 
 		courseRepository.save(course);
 	}

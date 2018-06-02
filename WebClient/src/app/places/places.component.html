@@ -20,6 +20,7 @@
   (onRowInserted)="onRowInserted($event)"
   (onRowRemoved)="onRowRemoved($event)"
   (onRowUpdated)="onRowUpdated($event)"
+  (onRowInserting)="onRowInserting($event)"
   >
   <dxo-paging [enabled]="true" [pageIndex]="0" [pageSize]="5"></dxo-paging>
   <dxo-pager 
@@ -30,12 +31,12 @@
   </dxo-pager>
   
   <dxo-editing mode="popup" [allowUpdating]="true" [allowAdding]="true" [allowDeleting]="true">
-      <dxo-popup title="Edit Activity Places" [showTitle]="true" [width]="800" [height]="500"></dxo-popup>
+      <dxo-popup title="" [showTitle]="true" [width]="800" [height]="500"></dxo-popup>
   </dxo-editing>
   
 
-  <dxi-column dataField="building" caption="Building"></dxi-column>
-  <dxi-column dataField="classroom" caption="Classroom"></dxi-column>
+  <dxi-column dataField="buildingName" caption="Building"><dxi-validation-rule type="required"></dxi-validation-rule></dxi-column>
+  <dxi-column dataField="classRoomName" caption="Classroom"><dxi-validation-rule type="required"></dxi-validation-rule></dxi-column>
 
   
   </dx-data-grid>
