@@ -25,6 +25,8 @@ import { PlacesComponent } from './places/places.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { ActivityService } from './services/activity.service';
 import { CourseService } from './services/course.service';
+import { FormsModule } from '@angular/forms';
+import { StorageService } from './services/storage.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -70,6 +72,7 @@ const appRoutes: Routes = [
     DxLookupModule,
     MatSnackBarModule,
     DxScrollViewModule,
+    FormsModule,
     RouterModule.forRoot(
       appRoutes,
      
@@ -82,6 +85,7 @@ const appRoutes: Routes = [
   ActivityService,
   AuthGuard,
   CourseService,
+  StorageService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

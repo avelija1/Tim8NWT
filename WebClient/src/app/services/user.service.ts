@@ -3,11 +3,12 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { HttpClientModule } from '@angular/common/http';
 import { Headers, Http, RequestOptionsArgs, RequestOptions } from '@angular/http';
+import { StorageService } from './storage.service';
 
 @Injectable()
 export class UserService {
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private storageService: StorageService) {
   }
   
   login(username, password): Observable<any> {
@@ -19,7 +20,11 @@ export class UserService {
 	username + '&password='+password + '&clientId=my-trusted-client', {},{ headers: headers });
  
   }
- 
+  
+  logout() {
+    localStorage.removeItem('access_token');
+    this.storageService.removeItem('logged');
+  }
 
   getAll(): Observable<any> {
     return this.http.get('//localhost:8091/api/users/user/');
