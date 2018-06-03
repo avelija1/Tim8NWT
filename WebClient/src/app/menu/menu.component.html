@@ -3,7 +3,7 @@
     <button type="button" color="primary" mat-raised-button (click)="sidenav.open()" *ngIf="isLogged">
       <i class="material-icons">menu</i>
     </button>
-    <button mat-raised-button color="primary" (click)="logout()" *ngIf="isLogged">Logout</button>
+    <button mat-raised-button color="primary" (click)="sidenav.close() && logout()" *ngIf="isLogged">Logout</button>
     <mat-sidenav-container class="example-container">
       <mat-sidenav #sidenav class="example-sidenav">
           <button [routerLink]="['/home']" style="width:100%; text-align:left; margin-bottom:5px;" type="button" color="primary" mat-raised-button (click)="sidenav.open()">
