@@ -80,7 +80,8 @@ const appRoutes: Routes = [
 	UserService, 
 	SnackService, 
   ActivityService,
-	AuthGuard,
+  AuthGuard,
+  CourseService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
