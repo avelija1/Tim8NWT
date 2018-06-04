@@ -3,6 +3,7 @@ import { SnackService } from '../services/snack.service';
 import { ActivityService } from '../services/activity.service';
 import { Activity } from './activity';
 import { DxLookupModule } from 'devextreme-angular';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-activities',
@@ -15,8 +16,10 @@ export class ActivitiesComponent implements OnInit {
   activity: Activity = new Activity();
   types: any[] = [];
   places: any[] = [];
+  isAdmin: boolean;
 
-  constructor(public snackService: SnackService, public activityService: ActivityService) { }
+  constructor(public snackService: SnackService, public activityService: ActivityService
+    , public storageService: StorageService) { }
 
   ngOnInit() {
     this.activityService.getAllActivities().subscribe(data => {
@@ -35,6 +38,18 @@ export class ActivitiesComponent implements OnInit {
       if (data != null) {
         this.places = data;
       }
+    });
+
+    if(localStorage.getItem("admin") == "true")
+    this.isAdmin = true;
+  else
+    this.isAdmin = false;
+  
+    this.storageService.watchStorage().subscribe((data:string) => {
+    if(localStorage.getItem("admin") == "true")
+      this.isAdmin = true;
+    else
+      this.isAdmin = false;
     });
   }
 

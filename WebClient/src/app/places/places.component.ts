@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SnackService } from '../services/snack.service';
 import { ActivityPlace } from '../activities/activityPlace';
 import { ActivityService } from '../services/activity.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-places',
@@ -11,14 +12,27 @@ import { ActivityService } from '../services/activity.service';
 export class PlacesComponent implements OnInit {
   dataSource;
   newActivityPlace:ActivityPlace = new ActivityPlace();
+  isAdmin: boolean;
 
-  constructor(public snackService: SnackService, public activityService:ActivityService) { }
+  constructor(public snackService: SnackService, public activityService:ActivityService
+  , public storageService:StorageService) { }
 
   ngOnInit() {
     this.dataSource=this.activityService.getAllActivityPlaces().subscribe(data => {
       if(data!=null){
       this.dataSource=data;
       }
+    });
+
+    if(localStorage.getItem("admin") == "true")
+    this.isAdmin = true;
+  else
+    this.isAdmin = false;
+  this.storageService.watchStorage().subscribe((data:string) => {
+    if(localStorage.getItem("admin") == "true")
+      this.isAdmin = true;
+    else
+      this.isAdmin = false;
     });
   }
 

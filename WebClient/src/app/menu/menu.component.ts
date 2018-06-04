@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class MenuComponent implements OnInit {
 
   isLogged: boolean;
+  isAdmin: boolean;
 
   constructor(private storageService: StorageService, private userService: UserService, private router: Router) { }
 
@@ -24,13 +25,27 @@ export class MenuComponent implements OnInit {
         this.isLogged = true;
       else
         this.isLogged = false;
-      })
+      });
+
+      if(localStorage.getItem("admin") == "true")
+      this.isAdmin = true;
+    else
+      this.isAdmin = false;
+    this.storageService.watchStorage().subscribe((data:string) => {
+      if(localStorage.getItem("admin") == "true")
+        this.isAdmin = true;
+      else
+        this.isAdmin = false;
+      });
+      
     
   }
 
   logout(){
     this.userService.logout();
     this.router.navigate(['home']);
+
+    
   }
 
 }

@@ -18,24 +18,24 @@
             <i class="material-icons">notifications_none</i> Activities
           </button>
           <br>
-          <button [routerLink]="['/staff']" style="width:100%; text-align:left; margin-bottom:5px;" type="button" color="primary" mat-raised-button (click)="sidenav.open()">
+          <button [routerLink]="['/tasks']" style="width:100%; text-align:left; margin-bottom:5px;" type="button" color="primary" mat-raised-button (click)="sidenav.open()">
+            <i class="material-icons">layers</i> Tasks
+          </button>
+          <br>
+          <button *ngIf="isAdmin" [routerLink]="['/staff']" style="width:100%; text-align:left; margin-bottom:5px;" type="button" color="primary" mat-raised-button (click)="sidenav.open()">
             <i class="material-icons">person</i> Staff
           </button>
           <br>
-          <button [routerLink]="['/students']" style="width:100%; text-align:left; margin-bottom:5px;" type="button" color="primary" mat-raised-button (click)="sidenav.open()">
+          <button *ngIf="isAdmin" [routerLink]="['/students']" style="width:100%; text-align:left; margin-bottom:5px;" type="button" color="primary" mat-raised-button (click)="sidenav.open()">
             <i class="material-icons">people</i> Students
           </button>
           <br>
-          <button [routerLink]="['/types']" style="width:100%; text-align:left; margin-bottom:5px;" type="button" color="primary" mat-raised-button (click)="sidenav.open()">
+          <button *ngIf="isAdmin" [routerLink]="['/types']" style="width:100%; text-align:left; margin-bottom:5px;" type="button" color="primary" mat-raised-button (click)="sidenav.open()">
             <i class="material-icons">format_list_numbered_rtl</i> Activity Types
           </button>
           <br>
-          <button [routerLink]="['/places']" style="width:100%; text-align:left; margin-bottom:5px;" type="button" color="primary" mat-raised-button (click)="sidenav.open()">
+          <button *ngIf="isAdmin" [routerLink]="['/places']" style="width:100%; text-align:left; margin-bottom:5px;" type="button" color="primary" mat-raised-button (click)="sidenav.open()">
             <i class="material-icons">location_city</i> Activity Places
-          </button>
-          <br>
-          <button [routerLink]="['/tasks']" style="width:100%; text-align:left; margin-bottom:5px;" type="button" color="primary" mat-raised-button (click)="sidenav.open()">
-            <i class="material-icons">layers</i> Tasks
           </button>
       </mat-sidenav>
       <dx-scroll-view direction="both">

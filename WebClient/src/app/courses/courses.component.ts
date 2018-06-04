@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SnackService } from '../services/snack.service';
 import { CourseService } from '../services/course.service';
 import { Course } from './course';
+import { StorageService } from '../services/storage.service';
 
 
 @Component({
@@ -13,10 +14,24 @@ export class CoursesComponent implements OnInit {
 
   dataSource = null;
   course: Course = new Course();
-  constructor(public snackService: SnackService, public courseService: CourseService) { }
+  isAdmin: boolean;
+  constructor(public snackService: SnackService, public courseService: CourseService
+  , public storageService: StorageService) { }
 
   ngOnInit() {
     this.courseService.getAll().subscribe(data => this.dataSource = data);
+
+    if(localStorage.getItem("admin") == "true")
+    this.isAdmin = true;
+  else
+    this.isAdmin = false;
+  
+    this.storageService.watchStorage().subscribe((data:string) => {
+    if(localStorage.getItem("admin") == "true")
+      this.isAdmin = true;
+    else
+      this.isAdmin = false;
+    });
   }
 
   onCellPrepared(e) {

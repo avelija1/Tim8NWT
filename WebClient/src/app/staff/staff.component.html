@@ -1,8 +1,8 @@
-<h2>
+<h2 *ngIf="isAdmin">
     Staff
 </h2>
   
-  <dx-data-grid
+  <dx-data-grid *ngIf="isAdmin"
   [width]="800"
   [dataSource]="dataSource"
   [columnMinWidth]="100"

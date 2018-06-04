@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SnackService } from '../services/snack.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-staff',
@@ -10,6 +11,7 @@ export class StaffComponent implements OnInit {
 
   displayedColumns = ['firstname', 'lastname', 'username', 'email'];
   dataSource = ELEMENT_DATA;
+  isAdmin: boolean;
 
   courses: any[] = [
     {id: 1, name: 'TP', code: 'TP123', ects: 8.5, description: 'opiss'},
@@ -17,9 +19,19 @@ export class StaffComponent implements OnInit {
     {id: 3, name: 'IM2', code: 'IM222', ects: 9.5, description: 'inzzz'}
   ];
 
-  constructor(public snackService: SnackService) { }
+  constructor(public snackService: SnackService, public storageService: StorageService) { }
 
   ngOnInit() {
+    if(localStorage.getItem("admin") == "true")
+    this.isAdmin = true;
+  else
+    this.isAdmin = false;
+  this.storageService.watchStorage().subscribe((data:string) => {
+    if(localStorage.getItem("admin") == "true")
+      this.isAdmin = true;
+    else
+      this.isAdmin = false;
+    });
   }
 
   onCellPrepared(e) {

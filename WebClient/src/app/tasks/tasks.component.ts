@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SnackService } from '../services/snack.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-tasks',
@@ -22,9 +23,23 @@ export class TasksComponent implements OnInit {
     ]}
   ];
 
-  constructor(public snackService: SnackService) { }
+  isAdmin: boolean;
+
+  constructor(public snackService: SnackService, public storageService:StorageService) { }
 
   ngOnInit() {
+
+    if(localStorage.getItem("admin") == "true")
+    this.isAdmin = true;
+  else
+    this.isAdmin = false;
+  
+    this.storageService.watchStorage().subscribe((data:string) => {
+    if(localStorage.getItem("admin") == "true")
+      this.isAdmin = true;
+    else
+      this.isAdmin = false;
+    });
   }
 
   onCellPrepared(e) {

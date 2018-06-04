@@ -11,9 +11,9 @@ import { StorageService } from '../services/storage.service';
 })
 export class HomeComponent implements OnInit {
   model: any = {};
-  username: string = 'bob';
-  password: string = 'abc123';
   isLogged: boolean;
+  isAdmin: boolean;
+  token: any;
 
 
   constructor(private router: Router, private userService: UserService, public snackService: SnackService, 
@@ -27,12 +27,20 @@ export class HomeComponent implements OnInit {
     else
       this.isLogged = false;
 
+
     this.storageService.watchStorage().subscribe((data:string) => {
       if(localStorage.getItem("logged") == "true")
         this.isLogged = true;
       else
         this.isLogged = false;
-      })
+      });
+      
+
+
+    
+
+      
+     
   }
   
    login() {
@@ -44,10 +52,25 @@ export class HomeComponent implements OnInit {
         this.router.navigate(['home']);
         this.isLogged = true;
         this.storageService.setItem("logged",this.isLogged.toString());
+
+
+        this.userService.checkToken().subscribe(data => {
+          console.log(data);
+          console.log(data["_body"]);
+          var body = data["_body"];
+          var substring = "ROLE_ADMIN";
+          if(body.indexOf(substring) !== -1)
+          {
+            this.isAdmin = true;
+            this.storageService.setItem("admin",this.isLogged.toString());
+          }
+        });
       },
       error => {
         this.snackService.showSnack("Wrong username or password", 'Error', 5000);
     });
+
+    
 
     
     
