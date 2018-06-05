@@ -55,8 +55,6 @@ export class HomeComponent implements OnInit {
 
 
         this.userService.checkToken().subscribe(data => {
-          console.log(data);
-          console.log(data["_body"]);
           var body = data["_body"];
           var substring = "ROLE_ADMIN";
           if(body.indexOf(substring) !== -1)
