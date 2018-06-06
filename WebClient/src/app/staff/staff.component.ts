@@ -73,6 +73,7 @@ export class StaffComponent implements OnInit {
 }
 
 onRowInserting(e) {
+  e.data.courses=[];
   this.newStaffMember.firstName=e.data.firstname;
   this.newStaffMember.lastName=e.data.lastname;
   this.newStaffMember.userName=e.data.username;

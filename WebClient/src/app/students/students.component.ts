@@ -74,6 +74,7 @@ export class StudentsComponent implements OnInit {
 }
 
 onRowInserting(e) {
+  e.data.courses=[];
   this.newStudent.firstName=e.data.firstname;
   this.newStudent.lastName=e.data.lastname;
   this.newStudent.userName=e.data.username;
