@@ -48,9 +48,9 @@ public ResourceServerTokenServices tokenService() {
     public void configure(HttpSecurity http) throws Exception {
         http.
         anonymous().disable().authorizeRequests()
-        .antMatchers("/activity/**").hasRole("ADMIN")
-        .antMatchers("/activityType/**").hasRole("ADMIN")
-        .antMatchers("/activityPlace/**").hasRole("ADMIN")
+        .antMatchers("/activity/**").hasRole("USER")
+        .antMatchers("/activityType/**").hasRole("USER")
+        .antMatchers("/activityPlace/**").hasRole("USER")
         .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
     }
 

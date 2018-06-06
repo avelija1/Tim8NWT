@@ -7,7 +7,8 @@ import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -35,6 +36,20 @@ public class Application {
 		return (args) -> {
 
 		};
+	}
+	
+	@Bean
+	public Queue candidateQueue() {
+		return new Queue("candidates.queue");
+	}
+
+	@RabbitListener(queues = "#{candidateQueue.name}")
+	public void getCandidateMessage(String candidateMessage) {
+		log.info(candidateMessage);
+
+		//for (int kk = 1; kk < 5; kk++)
+			log.info("porukaa");
+		
 	}
 
 }

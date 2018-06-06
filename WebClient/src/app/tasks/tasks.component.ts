@@ -12,7 +12,7 @@ import { Task } from './task';
 export class TasksComponent implements OnInit {
 
   displayedColumns = ['name', 'notes', 'date', 'status'];
-  dataSource = ELEMENT_DATA;
+  dataSource: any;
   datum;
   newTask:Task=new Task();
 
@@ -44,7 +44,9 @@ export class TasksComponent implements OnInit {
       this.isAdmin = false;
     });
 
-    this.taskService.getAllTasks().subscribe(data=> this.dataSource=data);
+    this.taskService.getAllTasks().subscribe(data=> {if (data != null) {
+      this.dataSource = data;
+    }});
   }
 
   onCellPrepared(e) {
