@@ -7,15 +7,15 @@ import { StorageService } from './storage.service';
 import 'rxjs/add/observable/empty';
 import { Role } from '../roles/role';
 import { User } from '../staff/user';
+import { Task } from '../tasks/task';
 
 @Injectable()
-export class UserService {
+export class TaskService {
 
 
   token: any;
 
-  usersUrl:string ='//localhost:8080/api/users/user/';
-  rolesUrl:string= '//localhost:8080/api/users/role/';
+  tasksUrl:string ='//localhost:8080/api/tasks/task/';
   constructor(private http: Http, private storageService: StorageService) {
   }
   
@@ -24,8 +24,6 @@ export class UserService {
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization' ,  'Basic bXktdHJ1c3RlZC1jbGllbnQ6c2VjcmV0');
     const opts = new RequestOptions({headers: headers});
-
-    
 
     return this.http.post('http://localhost:8091/oauth/token?grant_type=password&username=' + 
   username + '&password='+password + '&clientId=my-trusted-client', {},{ headers: headers });
@@ -37,61 +35,33 @@ export class UserService {
     this.storageService.removeItem('admin');
   }
 
-  getAll(): Observable<any> {
-    return this.http.get(this.usersUrl);
+  getAllTasks(): Observable<any> {
+    return this.http.get(this.tasksUrl);
   }
 
-  getAllRoles(): Observable<any> {
-    return this.http.get(this.rolesUrl);
-}
 
-putRole(role: Role) {
-    let url = this.rolesUrl + '/' + role.id;
+putTask(task: Task) {
+    let url = this.tasksUrl + '/' + task.id;
 
     return this.http
-        .put(url, role)
+        .put(url, task)
         .subscribe();
 }
 
-postRole(role: Role): void {
-    let url = this.rolesUrl;
+postTask(task: Task): void {
+    let url = this.tasksUrl;
 
     this.http
-        .post(url, role)
+        .post(url, task)
         .subscribe();
 };
 
-deleteRole(roleId: number): void {
-    let url = this.rolesUrl + '/' + roleId;
+deleteTask(taskId: number): void {
+    let url = this.tasksUrl + '/' + taskId;
 
     this.http
         .delete(url)
         .subscribe();
-};
-
-
-putUser(user: User) {
-  let url = this.usersUrl + '/' + user.id;
-
-  return this.http
-      .put(url, user)
-      .subscribe();
-}
-
-postUser(user: User): void {
-  let url = this.usersUrl;
-
-  this.http
-      .post(url, user)
-      .subscribe();
-};
-
-deleteUser(userId: number): void {
-  let url = this.usersUrl + '/' + userId;
-
-  this.http
-      .delete(url)
-      .subscribe();
 };
 
   checkToken(): Observable<any> {

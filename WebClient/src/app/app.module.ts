@@ -27,6 +27,8 @@ import { ActivityService } from './services/activity.service';
 import { CourseService } from './services/course.service';
 import { FormsModule } from '@angular/forms';
 import { StorageService } from './services/storage.service';
+import { RolesComponent } from './roles/roles.component';
+import { TaskService } from './services/task.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -38,6 +40,8 @@ const appRoutes: Routes = [
   { path: 'types', component: TypesComponent, canActivate: [AuthGuard] },
   { path: 'places', component: PlacesComponent, canActivate: [AuthGuard] },
   { path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
+  { path: 'roles', component: RolesComponent, canActivate: [AuthGuard] }
+  
 ]
 
 @NgModule({
@@ -54,7 +58,8 @@ const appRoutes: Routes = [
     ErrorSnackbarComponent,
     TypesComponent,
     PlacesComponent,
-    TasksComponent
+    TasksComponent,
+    RolesComponent
     
   ],
   imports: [
@@ -85,6 +90,7 @@ const appRoutes: Routes = [
   ActivityService,
   AuthGuard,
   CourseService,
+  TaskService,
   StorageService,
     {
       provide: HTTP_INTERCEPTORS,

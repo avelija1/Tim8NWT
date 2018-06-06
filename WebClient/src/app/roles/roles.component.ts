@@ -1,29 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { SnackService } from '../services/snack.service';
+import { ActivityType } from '../activities/activityType';
+import { ActivityService } from '../services/activity.service';
 import { StorageService } from '../services/storage.service';
-import { User } from './user';
 import { UserService } from '../services/user.service';
+import { Role } from './role';
 
 @Component({
-  selector: 'app-staff',
-  templateUrl: './staff.component.html',
-  styleUrls: ['./staff.component.css']
+  selector: 'app-roles',
+  templateUrl: './roles.component.html',
+  styleUrls: ['./roles.component.css']
 })
-export class StaffComponent implements OnInit {
+export class RolesComponent implements OnInit {
+  
 
-  displayedColumns = ['firstname', 'lastname', 'username', 'email'];
-  dataSource = ELEMENT_DATA;
+  dataSource;
+  newRole:Role = new Role();
   isAdmin: boolean;
-  newStaffMember:User=new User();
-  courses: any[] = [
-    {id: 1, name: 'TP', code: 'TP123', ects: 8.5, description: 'opiss'},
-    {id: 2, name: 'IM1', code: 'IM111', ects: 9, description: 'matematika'},
-    {id: 3, name: 'IM2', code: 'IM222', ects: 9.5, description: 'inzzz'}
-  ];
 
-  constructor(public snackService: SnackService, public storageService: StorageService, public userService:UserService) { }
+  constructor(public snackService: SnackService, public userService:UserService
+  , public storageService:StorageService) { }
 
   ngOnInit() {
+    this.userService.getAllRoles().subscribe(data => {
+      this.dataSource=data;
+    });
+
     if(localStorage.getItem("admin") == "true")
     this.isAdmin = true;
   else
@@ -34,8 +36,6 @@ export class StaffComponent implements OnInit {
     else
       this.isAdmin = false;
     });
-
-   // this.userService.getAll().subscribe(data=>this.dataSource=data);
   }
 
   onCellPrepared(e) {
@@ -73,45 +73,23 @@ export class StaffComponent implements OnInit {
 }
 
 onRowInserting(e) {
-  this.newStaffMember.firstName=e.data.firstname;
-  this.newStaffMember.lastName=e.data.lastname;
-  this.newStaffMember.userName=e.data.username;
-  this.newStaffMember.email=e.data.email;
-
-  this.userService.postUser(this.newStaffMember);
+  this.newRole.name=e.data.name;
+  this.userService.postRole(this.newRole);
 }
-
 
 onRowInserted(e) {
   setTimeout(() => this.snackService.showSnack("Inserted", 'Success', 5000));
 }
 
 onRowRemoved(e) {
-  this.userService.deleteUser(e.data.id);
+  this.userService.deleteRole(e.data.id);
   setTimeout(() => this.snackService.showSnack("Deleted", 'Success', 5000));
 }
 
 onRowUpdated(e) {
-  this.userService.putUser(e.key);
+  this.userService.putRole(e.key);
   setTimeout(() => this.snackService.showSnack("Updated", 'Success', 5000));
-
-}
 }
 
-export interface Staff {
-  firstname: string;
-  lastname: string;
-  username: string;
-  email: string;
-  courses: any[];
 }
 
-const ELEMENT_DATA: Staff[] = [
-  {firstname: 'Lejla', lastname: 'Bajgoric', username: 'lb1', email: 'lb1@email.com', courses: [
-    {id: 1, name: 'TP', code: 'TP123', ects: 8.5, description: 'opiss'},
-    {id: 2, name: 'IM1', code: 'IM111', ects: 9, description: 'matematika'},
-    {id: 3, name: 'IM2', code: 'IM222', ects: 9.5, description: 'inzzz'}
-  ]},
-  {firstname: 'Amer', lastname: 'Kodzaga', username: 'akodzaga1', email: 'akodzaga1@etf.unsa.ba', courses: [
-  ]}
-];

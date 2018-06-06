@@ -24,6 +24,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         .requestMatchers().antMatchers("/user/**")
         .and().authorizeRequests()
         .antMatchers("/user/**").access("hasRole('ADMIN')")
+        .antMatchers("/activity/**").access("hasRole('USER')")
+        .antMatchers("/activityType/**").access("hasRole('USER')")
+        .antMatchers("/activityPlace/**").access("hasRole('USER')")
+        .antMatchers("/task/**").access("hasRole('USER')")
         .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
     }
 

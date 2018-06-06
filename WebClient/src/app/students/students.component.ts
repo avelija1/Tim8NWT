@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SnackService } from '../services/snack.service';
 import { StorageService } from '../services/storage.service';
+import { User } from '../staff/user';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-students',
@@ -10,8 +12,9 @@ import { StorageService } from '../services/storage.service';
 export class StudentsComponent implements OnInit {
 
   displayedColumns = ['firstname', 'lastname', 'username', 'email', 'year', 'semester'];
-  dataSource = ELEMENT_DATA;
+  dataSource=ELEMENT_DATA;
   isAdmin: boolean;
+  newStudent:User= new User();
 
   courses: any[] = [
     {id: 1, name: 'TP', code: 'TP123', ects: 8.5, description: 'opiss'},
@@ -19,7 +22,7 @@ export class StudentsComponent implements OnInit {
     {id: 3, name: 'IM2', code: 'IM222', ects: 9.5, description: 'inzzz'}
   ];
 
-  constructor(public snackService: SnackService, public storageService: StorageService) { }
+  constructor(public snackService: SnackService, public storageService: StorageService, public userService:UserService) { }
 
   ngOnInit() {
     if(localStorage.getItem("admin") == "true")
@@ -32,6 +35,8 @@ export class StudentsComponent implements OnInit {
     else
       this.isAdmin = false;
     });
+
+    //this.userService.getAll().subscribe(data=>this.dataSource=data);
   }
 
   onCellPrepared(e) {
@@ -68,20 +73,29 @@ export class StudentsComponent implements OnInit {
    });
 }
 
+onRowInserting(e) {
+  this.newStudent.firstName=e.data.firstname;
+  this.newStudent.lastName=e.data.lastname;
+  this.newStudent.userName=e.data.username;
+  this.newStudent.email=e.data.email;
+
+  this.userService.postUser(this.newStudent);
+}
+
+
 onRowInserted(e) {
   setTimeout(() => this.snackService.showSnack("Inserted", 'Success', 5000));
 }
 
 onRowRemoved(e) {
+  this.userService.deleteUser(e.data.id);
   setTimeout(() => this.snackService.showSnack("Deleted", 'Success', 5000));
 }
 
 onRowUpdated(e) {
+  this.userService.putUser(e.key);
   setTimeout(() => this.snackService.showSnack("Updated", 'Success', 5000));
-}
 
-onRowInserting(e) {
-  e.data.courses=[];
 }
 
 }

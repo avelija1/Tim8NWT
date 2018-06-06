@@ -91,7 +91,6 @@ export class CoursesComponent implements OnInit {
   }
 
   onRowUpdated(e) {
-    console.log(e.key);
     this.courseService.put(e.key);
     setTimeout(() => this.snackService.showSnack("Updated", 'Success', 5000));
   }

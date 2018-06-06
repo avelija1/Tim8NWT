@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SnackService } from '../services/snack.service';
 import { StorageService } from '../services/storage.service';
+import { TaskService } from '../services/task.service';
+import { Task } from './task';
 
 @Component({
   selector: 'app-tasks',
@@ -12,6 +14,7 @@ export class TasksComponent implements OnInit {
   displayedColumns = ['name', 'notes', 'date', 'status'];
   dataSource = ELEMENT_DATA;
   datum;
+  newTask:Task=new Task();
 
   users: any[] = [
     {firstname: 'Selma', lastname: 'Glavic', username: 'sg1', email: 'sg1@email.com', year: 4, semester: 2, courses: [
@@ -25,7 +28,7 @@ export class TasksComponent implements OnInit {
 
   isAdmin: boolean;
 
-  constructor(public snackService: SnackService, public storageService:StorageService) { }
+  constructor(public snackService: SnackService, public storageService:StorageService, public taskService:TaskService) { }
 
   ngOnInit() {
 
@@ -40,6 +43,8 @@ export class TasksComponent implements OnInit {
     else
       this.isAdmin = false;
     });
+
+    this.taskService.getAllTasks().subscribe(data=> this.dataSource=data);
   }
 
   onCellPrepared(e) {
@@ -76,15 +81,26 @@ export class TasksComponent implements OnInit {
    });
 }
 
+onRowInserting(e) {
+  this.newTask.name=e.data.name;
+  this.newTask.notes=e.data.notes;
+  this.newTask.status=e.data.status;
+  this.newTask.date=e.data.date;
+  this.newTask.user=e.data.user;
+  this.taskService.postTask(this.newTask);
+}
+
 onRowInserted(e) {
   setTimeout(() => this.snackService.showSnack("Inserted", 'Success', 5000));
 }
 
 onRowRemoved(e) {
+  this.taskService.deleteTask(e.data.id);
   setTimeout(() => this.snackService.showSnack("Deleted", 'Success', 5000));
 }
 
 onRowUpdated(e) {
+  this.taskService.putTask(e.key);
   setTimeout(() => this.snackService.showSnack("Updated", 'Success', 5000));
 }
 
