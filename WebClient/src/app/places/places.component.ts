@@ -10,7 +10,7 @@ import { StorageService } from '../services/storage.service';
   styleUrls: ['./places.component.css']
 })
 export class PlacesComponent implements OnInit {
-  dataSource;
+  dataSource = [];
   newActivityPlace:ActivityPlace = new ActivityPlace();
   isAdmin: boolean;
 
@@ -18,7 +18,7 @@ export class PlacesComponent implements OnInit {
   , public storageService:StorageService) { }
 
   ngOnInit() {
-    this.dataSource=this.activityService.getAllActivityPlaces().subscribe(data => {
+    this.activityService.getAllActivityPlaces().subscribe(data => {
       if(data!=null){
       this.dataSource=data;
       }

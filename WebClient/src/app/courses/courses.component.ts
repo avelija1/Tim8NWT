@@ -12,14 +12,16 @@ import { StorageService } from '../services/storage.service';
 })
 export class CoursesComponent implements OnInit {
 
-  dataSource = null;
+  dataSource = [];
   course: Course = new Course();
   isAdmin: boolean;
   constructor(public snackService: SnackService, public courseService: CourseService
   , public storageService: StorageService) { }
 
   ngOnInit() {
-    this.courseService.getAll().subscribe(data => this.dataSource = data);
+    this.courseService.getAll().subscribe(data => {if(data!=null){
+      this.dataSource=data;
+      }});
 
     if(localStorage.getItem("admin") == "true")
     this.isAdmin = true;

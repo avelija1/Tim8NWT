@@ -14,7 +14,7 @@ import { Role } from './role';
 export class RolesComponent implements OnInit {
   
 
-  dataSource;
+  dataSource = [];
   newRole:Role = new Role();
   isAdmin: boolean;
 
@@ -23,7 +23,9 @@ export class RolesComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getAllRoles().subscribe(data => {
-      this.dataSource=data;
+      if(data!=null){
+        this.dataSource=data;
+        }
     });
 
     if(localStorage.getItem("admin") == "true")

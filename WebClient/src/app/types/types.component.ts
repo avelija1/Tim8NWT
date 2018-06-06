@@ -12,7 +12,7 @@ import { StorageService } from '../services/storage.service';
 export class TypesComponent implements OnInit {
   
 
-  dataSource;
+  dataSource = [];
   newActivityType:ActivityType = new ActivityType();
   isAdmin: boolean;
 
@@ -20,7 +20,7 @@ export class TypesComponent implements OnInit {
   , public storageService:StorageService) { }
 
   ngOnInit() {
-    this.dataSource=this.activityService.getAllActivityTypes().subscribe(data => {
+    this.activityService.getAllActivityTypes().subscribe(data => {
       if(data!=null){
       this.dataSource=data;
       }
